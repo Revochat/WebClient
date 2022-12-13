@@ -1,0 +1,44 @@
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+$dark: #252525;
+$light: #e5e7eb;
+
+
+body{
+    background-color: $light;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+
+    .css-1yocq7i-MuiPaper-root {
+        background-color: $light !important;
+        color: purple;
+    }
+}
+
+body.dark{
+    background-color:$dark;
+    // color: white;
+
+    .css-1yocq7i-MuiPaper-root {
+        background-color: $dark !important;
+    }
+    .switch{
+        background-color: $light;
+    }
+
+    nav{
+        -webkit-backdrop-filter: saturate(50%) blur(8px);
+        backdrop-filter: saturate(50%) blur(8px);
+        background: rgba(36,36,36,.7);  
+        color: $light;
+
+    }
+
+    article{
+        color: $light;
+    }
+
+    
+}
+

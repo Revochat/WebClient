@@ -1,0 +1,75 @@
+@import './globals.scss';
+
+
+.mainPage {
+    top: 10%;
+    margin-top: -80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    article {
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-family: 'JetBrains Mono', monospace;
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+        button {
+            position: relative;
+            margin: 20px 35%;
+            padding: 10px 20px;
+            border: none;
+            width: 200px;
+            border-radius: 10px;
+            background-image: linear-gradient( 120deg, #bd34fe 30%, #41d1ff );
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            
+        }
+
+        .titleApp{
+
+            font-weight: 600;
+            font-size: 46px;
+            background-image: linear-gradient( 120deg, #bd34fe 30%, #41d1ff );
+            background-size: 100%;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            -webkit-text-fill-color: transparent; 
+            -moz-text-fill-color: transparent;
+          
+            
+            
+        }
+    }
+    main {
+
+        img {
+            margin: 140px;
+            width: 60%;
+            // height: 90%;
+            object-fit: cover;
+            
+
+            // &::before{
+            // position: absolute;
+            // background: linear-gradient( 120deg, #bd34fe 30%, #41d1ff );
+            // transform: translate3d(0px, 20px, 0) scale(0.95);
+            //     filter: blur(20px);
+            //     opacity: var(0.7);
+            //     transition: opacity 0.3s;
+            //     border-radius: inherit;
+            // }
+        }
+    }
+}
