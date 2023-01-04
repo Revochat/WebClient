@@ -8,7 +8,6 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import FriendsListRow from './FriendsListRow';
-import { Context } from '../../pages/Context';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -58,7 +57,7 @@ export default function FriendsList() {
     const [search, setSearch] = useState('');
     const [nav, setNav] = useState('All');
     const [users, setUsers] = useState(USERS)
-    const [wallet, setWallet] = useContext(Context)
+    // const [wallet, setWallet] = useContext(Context)
 
 
     useEffect(() => {
@@ -88,7 +87,7 @@ export default function FriendsList() {
   }
 
   return (
-    <div className='mt-4 bottom-0 h-full ml-2'>
+    <div className='mt-4  h-full ml-2 border-l'>
       {/* <h1> {wallet} </h1>  */}
         <header className='flex justify-self-start text-xl font-semibold cursor-pointer'>
             <span className='mx-4'> <Diversity1Icon/> Friends</span>
@@ -119,12 +118,13 @@ export default function FriendsList() {
           {search}
         </div>
 
-        {nav} - {users.length}
-           
+        <div className='ml-2'>
+          {nav} - {users.length}
             
-            <Divider className='mt-2' />
-       <FriendsListRow users={users} search={search}/>
-        
+              
+              <Divider className='mt-2' />
+        <FriendsListRow users={users} search={search}/>
+       </div>
     </div>
   )
 }

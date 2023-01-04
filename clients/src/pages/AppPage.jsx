@@ -1,21 +1,27 @@
 import React from 'react';
 import SideBar from '../public/components/SideBar'
-import ChatPage from '../public/components/ChatPage'
+import ChatPage from './ChatPage'
 import NavBar from '../public/components/NavBar';
 import FriendsList from '../public/components/FriendsList';
 import Wallet from '../public/components/Wallet';
 import ChatsList from '../public/components/ChatsList';
+import { Divider } from '@mui/material'
+import Messages from '../public/components/Messages';
+
 
 
 const AppPage = () => {
     return (
-        <div className='w-full'>
+        <div className='flex-wrap '>
            <div >
                 <SideBar/>
             </div>
-           <div className=' ml-16 absolute left-2 h-full w-56'>
+
+           <div className='bg-cyan-700 ml-14 absolute pl-2 h-full w-60'>
             <ChatsList/>
-            <span className='absolute bottom-2 py-1 border rounded-full border-purple-500 flex max-w-full'>
+            {/* <Divider orientation='vertical' /> */}
+
+            <span className='absolute bottom-2 ml-6 py-1 border rounded-full border-purple-500 flex max-w-full'>
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                         width="30" height="30"
@@ -24,11 +30,13 @@ const AppPage = () => {
                     </svg>
                 </span>
             
-             <Wallet />
+            <Wallet />
             </span>
            </div> 
-           <div className='bg-neutral-700 absolute ml-72 left-2 h-full overflow-hidden' style={{width: '82.6%'}}>
-                <FriendsList />
+           <div className='bg-cyan-600 ml-72 left-2 absolute  h-full ' style={{width: '80%'}} >
+                {/* <FriendsList /> */}
+                <Messages/>
+
             </div> 
            {/* <ChatPage/> */}
         </div>

@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Link from 'next/link';
-import { Context } from '../../pages/Context';
 import Button from '@mui/material/Button';
 import logo from '../assets/img/logo.png'
 import WalletCard from '../../pages/hooks/MetaConnect';
@@ -9,7 +8,6 @@ import MetaConnect from '../../pages/hooks/MetaConnect';
 
 export default function home() {
   
-  const [Auth, setAuth] = useContext(Context);
 
   const WalletLogin = () => {
     console.log('log to wallet')

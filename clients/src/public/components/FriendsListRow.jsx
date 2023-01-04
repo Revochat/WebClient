@@ -2,12 +2,15 @@ import React from 'react'
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Divider from '@mui/material/Divider';
+import Link from 'next/link';
 
 
 export default function FriendsListRow({users, search}) {
 
+    const ChatToUser = (user_id) => {
+    }
   return (
-    <div className='mt-4 ml-4'>
+    <div className='mt-4 ml-2'>
             
             <div>
             {users.map((user, index)=> (
@@ -29,8 +32,10 @@ export default function FriendsListRow({users, search}) {
                         <span className='italic'>{user.status} </span>
                     </div>
                     <div className='right-0 mt-3 mx-20 absolute align-middle items-center '>
-                        <span className='mx-2'> <ChatBubbleIcon fontSize='large' /></span>
-                        <span className='mx-2'> <MoreVertIcon fontSize='large' /> </span>
+                        <Link href={`/messages/${user.id}`}>
+                            <span onClick={()=> ChatToUser(user.id)} className='mx-2'> <ChatBubbleIcon className='cursor-pointer text-slate-600 hover:text-cyan-200' fontSize='large' /></span>
+                        </Link>
+                        <span className='mx-2'> <MoreVertIcon className='hover:text-cyan-200 cursor-pointer' fontSize='large' /> </span>
                     </div>
                 </div>
                 <Divider/>

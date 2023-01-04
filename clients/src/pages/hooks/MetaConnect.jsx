@@ -1,12 +1,13 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { ethers } from "ethers";
 import React, { useContext, useEffect, useState } from "react";
-import { Context } from '../../pages/Context';
+import { RevochatContext } from '../../public/context/context'
 
 const MetaConnect = () => {
 
-  const [Auth, setAuth] = useContext(Context);
-  const [wallet, setWallet] = useContext(Context);
+  const {currentUser, wallet} = useContext(RevochatContext);
+
+  // const [wallet, setWallet] = useContext(Context);
 
   const [errorMessage, setErrorMessage] = useState(null);
   const [account, setAccount] = useState(null);
@@ -47,15 +48,13 @@ const MetaConnect = () => {
       console.error(err);
       setErrorMessage("There was a problem connecting to MetaMask");
     }
-    setWallet(account)
-    console.log(wallet)
+    // setWallet(account)
   };
 
   const chainChanged = () => {
     setErrorMessage(null);
     setAccount(null);
     setBalance(null);
-    // setWallet(null);
   };
 
   return (
@@ -65,7 +64,8 @@ const MetaConnect = () => {
         <Typography variant="h6">
           Balance: {balance} {balance ? "ETH" : null}
         </Typography>
-        <Button onClick={connectHandler}>Connect Account</Button>
+        {/* <Button onClick={connectHandler}>Connect Account</Button> */}
+        <Button href="/chat">Access to Chat</Button>
         {errorMessage ? (
           <Typography variant="body1" color="red">
             Error: {errorMessage}

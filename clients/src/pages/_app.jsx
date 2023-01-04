@@ -9,6 +9,8 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import "../styles/input.css"
 
+import { RevochatProvider } from '../public/context/context'
+import { useRouter } from 'next/router'
 
 import React from 'react';
 
@@ -16,7 +18,11 @@ export const Context = React.createContext();
 
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <RevochatProvider>
+      <Component {...pageProps} />
+    </RevochatProvider>
+  )
 }
 
 export default MyApp
