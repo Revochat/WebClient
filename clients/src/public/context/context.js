@@ -41,7 +41,7 @@ const initialState = {messages: []}
             })
             if(adressArray.length > 0){
                 setCurrentAccount(adressArray[0])
-                setCurrentUser(adressArray[0])
+                setUser(adressArray[0])
                 
             }
             else{}
@@ -59,7 +59,8 @@ const initialState = {messages: []}
             })
             if(adressArray.length > 0) {
                 setCurrentAccount(adressArray[0])
-                setCurrentUser(adressArray[0])
+                setUser(adressArray[0])
+                //Login
 
             }
             else{}
