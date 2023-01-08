@@ -6,12 +6,12 @@ export default{
     
     register(username, password){
        return axios.get(`http://localhost:3000/api/v1/client/register/${username}/${password}`)
-        .then(res=>res.json())
+        .then(res=>res)
         .catch(err=>console.log(err))
     },
 
-    login(wallet){
-       return axios.post(`http://localhost:3000/api/client/connect/${wallet}`)
+    login(username, password){
+       return axios.get(`http://localhost:3000/api/v1/client/connect/${username}/${password}`)
         
     }
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import AlertMessage from '../../../public/components/utilities/AlertMessage'
 import AuthService from '../../../public/services/Auth.service'
 // import Alert from '../Utilities/Alert'
 
@@ -42,7 +43,7 @@ export default function RegisterForm() {
 
          <div className='mx-8 mt-4 flex-col '>
             
-            <label className='block text-gray-700 text-sm font-bold mt-2' htmlFor="lastName">USERNAME :</label><br/>
+            <label className='block text-gray-700 text-sm font-bold mt-2' htmlFor="username">USERNAME :</label><br/>
             <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' type="text" onChange={(e) => setUsername(e.target.value)} /><br/>
 
             <label className='block text-gray-700 text-sm font-bold mt-2' htmlFor="password">PASSWORD :</label><br/>
@@ -63,27 +64,27 @@ export default function RegisterForm() {
             </div>
          </div>
 
-        {/* {alert=='success' &&
+        {alert=='success' &&
             <div className='flex justify-center pt-6'>
-            <Alert type='success'>
+            <AlertMessage type='success'>
                 <div className=''>
                     Your account have been created successfully ! <span onClick={()=> setAlert('')} className='ml-4 cursor-pointer absolute'>X</span>
                 </div>
                 
-            </Alert>
+            </AlertMessage>
             </div>
         }
 
         {alert=='error' &&
             <div className='flex justify-center pt-6'>
-            <Alert type='error'>
+            <AlertMessage type='error'>
                 <div className=''>
                     Error: Please fill all fields ! <span onClick={()=> setAlert('')} className='ml-36 cursor-pointer absolute  '>X</span>
                 </div>
                 
-            </Alert>
+            </AlertMessage>
             </div>
-        } */}
+        }
         </div> 
 
     </div>
