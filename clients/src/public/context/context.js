@@ -20,7 +20,7 @@ const initialState = {messages: []}
         const router = useRouter();
         const [state, dispatch] = useReducer(reducer, initialState)
         const [currentAccount, setCurrentAccount] = useState('')
-        const [currentUser, setUser] = useState()
+        const [currentUser, setCurrentUser] = useState()
         const [roomName, setRoomName] = useState()
         const [messagetext, setMessageText] = useState()
         const [placeholder, setPlaceholder] = useState()
@@ -60,6 +60,7 @@ const initialState = {messages: []}
             if(adressArray.length > 0) {
                 setCurrentAccount(adressArray[0])
                 setCurrentUser(adressArray[0])
+                //Login
 
             }
             else{}
@@ -75,6 +76,7 @@ const initialState = {messages: []}
                 currentAccount,
                 roomName,
                 currentUser,
+                setCurrentUser,
                 currentAccount,
                 connectWallet 
                 

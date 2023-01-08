@@ -29,7 +29,7 @@ const SideBar = () => {
         // setAuth(false);
     }
     return (
-        <div className="sidebar bg-cyan-900">
+        <div className="sidebar bg-primary">
             <div >
                 <ServerList/>
             </div>

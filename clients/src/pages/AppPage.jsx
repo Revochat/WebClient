@@ -17,7 +17,7 @@ const AppPage = () => {
                 <SideBar/>
             </div>
 
-           <div className='bg-cyan-700 ml-14 absolute pl-2 h-full w-60'>
+           <div className='bg-purple ml-14 absolute pl-2 h-full w-60'>
             <ChatsList/>
             {/* <Divider orientation='vertical' /> */}
 
@@ -33,7 +33,7 @@ const AppPage = () => {
             <Wallet />
             </span>
            </div> 
-           <div className='bg-cyan-600 ml-72 left-2 absolute  h-full ' style={{width: '80%'}} >
+           <div className='bg-secondary ml-72 left-2 absolute  h-full ' style={{width: '80%'}} >
                 {/* <FriendsList /> */}
                 <Messages/>
 

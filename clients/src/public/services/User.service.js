@@ -4,14 +4,11 @@ import axios from 'axios'
 
 export default{
     
-    register(username, password){
-       return axios.get(`http://localhost:3000/api/client/register/${username}/${password}`)
+    getUSer(token){
+       return axios.get(`http://localhost:3000/api/v1/client/get/user/${wallet}`)
         .then(res=>res.json())
         .catch(err=>console.log(err))
     },
 
-    login(wallet){
-       return axios.post(`http://localhost:3000/api/client/connect/${wallet}`)
-        
-    }
+   
 }

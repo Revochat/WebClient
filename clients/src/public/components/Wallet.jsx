@@ -9,6 +9,7 @@ export default function Wallet() {
   return (
     <Button className='overflow-x-hidden text-ellipsis text-white'  onClick={() => connectWallet()} >
         {currentAccount && currentAccount.slice(0,8) }...{currentAccount.slice(38)}
+        {currentUser && currentUser.username}
     </Button>
   )
 }
