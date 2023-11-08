@@ -1,14 +1,14 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation';
 import LoginComponent from '@/components/auth/LoginComponent';
 import RegisterComponent from '@/components/auth/RegisterComponent';
 
 const AuthPage = () => {
     const router = useRouter();
     const pathname = usePathname()
-    const searchParams = useSearchParams()
-    const type = searchParams.get('type')
+    const searchParams = useParams()
+    const type = searchParams.type
 
   
     useEffect(() => {
