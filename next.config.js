@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    env: {
+        REVO_API_URL: process.env.REVO_API_URL,
+    }
+}
 
 module.exports = nextConfig
