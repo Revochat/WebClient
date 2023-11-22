@@ -18,7 +18,7 @@ const AuthPage = () => {
       }, [pathname, searchParams])
   
     return (
-      <div>
+      <div className="h-screen w-screen overflow-hidden" style={{background: 'linear-gradient(121.07deg, #1E266C -3.48%, #01003D 101.18%)'}}>
         {type === 'login' ? (
           <LoginComponent />
         ) : type === 'register' ? (
