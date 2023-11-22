@@ -79,7 +79,7 @@ const RegisterComponent = () => {
                     <img src={revochat_QR.src} alt='revochat_QR' className='w-[60%]' />
                 </div>
             </div>
-            {loader && <p className='text-blue-500 text-xl font-semibold'><DefaultLoader/> </p>}
+            {loader && <DefaultLoader/> }
             {error && <p className='text-red-500 text-xl font-semibold'>Server Error</p>}
 
         </div>
