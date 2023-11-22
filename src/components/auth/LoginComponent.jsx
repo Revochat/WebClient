@@ -3,6 +3,7 @@ import revochat_QR from '../../assets/images/revochat_QR.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import authApi from '@/apis/auth.api';
 import { useRouter } from 'next/navigation';
+import { DefaultLoader } from '../utils/Loaders';
 
 const LoginComponent = () => {
 
@@ -80,7 +81,7 @@ const LoginComponent = () => {
                     <img src={revochat_QR.src} alt='revochat_QR' className='w-[60%]' />
                 </div>
             </div>
-            {loader && <p className='text-blue-500 text-xl font-semibold'>Loading...</p>}
+            {loader && <p className='text-blue-500 text-xl font-semibold'><DefaultLoader/> </p>}
             {error && <p className='text-red-500 text-xl font-semibold'>Username or password is incorrect</p>}
 
         </div>
