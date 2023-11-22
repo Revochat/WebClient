@@ -2,3 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* style scrollbars  */
+/* Style the main scrollbar track */
+::-webkit-scrollbar {
+    width: 10px; /* Set the width of the scrollbar */
+}
+
+/* Style the scrollbar handle or thumb */
+::-webkit-scrollbar-thumb {
+background-color: #6e6d6d; /* Set the color of the thumb */
+border-radius: 6px; /* Make the thumb rounded */
+}
+
+/* Style the scrollbar track (the area the thumb moves on) */
+::-webkit-scrollbar-track {
+background-color: #f1f1f1; /* Set the color of the track */
+border-radius: 6px; /* Set the rounded corners of the track */
+}
+
+/* Style the corners of the scrollbar */
+::-webkit-scrollbar-corner {
+background-color: #f1f1f1; /* Set the color of the scrollbar corners */
+}
