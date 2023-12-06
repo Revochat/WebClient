@@ -2,6 +2,7 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { RevochatProvider } from '@/context/context';
+import React from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -14,9 +15,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <RevochatProvider>
-          {children}
-        </RevochatProvider>
+          <RevochatProvider>
+            {children}
+          </RevochatProvider>
       </body>
     </html>
   )

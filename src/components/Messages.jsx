@@ -1,16 +1,41 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { messagesData } from '@/data/messages.data';
 import InputMessage from './utils/InputMessage';
+import { RevochatContext } from '@/context/context';
 
 const Messages = () => {
 
+    const { revochatClient } = useContext(RevochatContext);
     const [messages, setMessages] = useState([]);
+    
     const userID = 1;
 
     useEffect(() => {
-        setMessages(messagesData)
+        revochatClient.channel.get({channel_id: "DM_lux_thomas", limit: 50})
+        revochatClient.on('channel.get', (channel) => {
+            console.log('channel: ', channel)
+            setMessages(channel.messages)
+        })
     }, [])
+
+    useEffect(() => {
+        revochatClient.on('message.send', (message) => {
+            setMessages([...messages, message])
+        })
+        console.log(messages)
+    }, [messages])
+
+    const getChannels = async () => {
+        revochatClient.channel.get({channel_id: "DM_lux_thomas", limit: 50})
+        revochatClient.on('channel.get', (channel) => {
+            console.log('channel: ', channel)
+            setMessages(channel.messages)
+        })
+    }
+   
+
+
 
     return (
         <div className='w-3/4 h-full bg-blue-600'>

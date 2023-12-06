@@ -8,7 +8,7 @@ import Channel from '@/components/Channel';
 const Page = () => {
     return (
         <div className='h-screen w-screen flex'>
-            <div className='w-1/4 flex'>
+            <div className='flex'>
                 <ServerList />
                 <MenuBar />
             </div>
