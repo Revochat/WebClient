@@ -34,7 +34,7 @@ const LoginComponent = () => {
             setLoader(false)
             localStorage.setItem('token', res.data.user.token)
             localStorage.setItem('user', JSON.stringify(res.data.user))
-            router.push('/')
+            router.push('/chat')
         })
         .catch(err => {
             console.log(err)

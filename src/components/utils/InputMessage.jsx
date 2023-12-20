@@ -4,16 +4,30 @@ import { FaPaperPlane, FaPlusCircle } from 'react-icons/fa';
 
 const InputMessage = () => {
     
-    const { revochatClient } = useContext(RevochatContext);
+    const { revochatClient, revoLogin } = useContext(RevochatContext);
     const [message, setMessage] = useState('');
+    const [client, setClient] = useState(null)
 
-    const sendMessage = () => {
+    useEffect(() => {
+        console.log('revoLogin component: ', revoLogin)
+        revochatClient.on("user.connect", () => {
+            console.log('user connect')
+            setClient(revochatClient)
+        })
+    }, [revoLogin])
+
+    const sendMessage = async () => {
         console.log('send message')
-        console.log(message)
-
-        revochatClient.message.send({channel_id: "DM_lux_thomas", message: message})
-        setMessage('')
+        try{
+            client.message.send({channel_id: "1702227951051", message: message})
+            console.log('message send')
+            setMessage('')
+        }
+        catch(err){
+            console.log(err)
+        }
     }
+
     const handleChange = (e) => {
         setMessage(e.target.value)
     }

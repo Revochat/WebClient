@@ -1,6 +1,6 @@
 'use client';
 import { RevochatContext } from '@/context/context';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BsFillSendPlusFill } from "react-icons/bs";
 
 
@@ -9,6 +9,9 @@ const AddFriend = () => {
     const { revochatClient } = useContext(RevochatContext);
    
     const [friendID, setFriendID] = useState("");
+
+  
+
 
     const handleChange = (e) => {
         setFriendID(e.target.value);

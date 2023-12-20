@@ -6,28 +6,42 @@ import { RevochatContext } from '@/context/context';
 
 const Messages = () => {
 
-    const { revochatClient } = useContext(RevochatContext);
+    const { revochatClient, currentUser } = useContext(RevochatContext);
     const [messages, setMessages] = useState([]);
+    const [load, setLoad] = useState(true);
     
-    const userID = 1;
+
+      
 
     useEffect(() => {
-        revochatClient.channel.get({channel_id: "DM_lux_thomas", limit: 50})
-        revochatClient.on('channel.get', (channel) => {
-            console.log('channel: ', channel)
-            setMessages(channel.messages)
+        if(!load) return;
+        console.log('channel.get')
+
+        revochatClient.on("user.connect", () => {
+            revochatClient.channel.get({channel_id: "1702227951051", limit: 50})
+            revochatClient.on('channel.get', (channel) => {
+                console.log('channel: ', channel)
+                setMessages(channel.messages)
+                setLoad(false)
+            })
+            console.log('messages: ', messages)
         })
     }, [])
 
     useEffect(() => {
-        revochatClient.on('message.send', (message) => {
-            setMessages([...messages, message])
-        })
-        console.log(messages)
-    }, [messages])
+        console.log('message.get')
+    
+            revochatClient.on('message.send', (message) => {
+                console.log('message: ', message)
+                setMessages(prevMessages => [...prevMessages, message.message])
+            })
+            console.log('messages: ', messages)
+    }, []); 
+
+
 
     const getChannels = async () => {
-        revochatClient.channel.get({channel_id: "DM_lux_thomas", limit: 50})
+        // revochatClient.channel.get({channel_id: "1702227951051", limit: 50})
         revochatClient.on('channel.get', (channel) => {
             console.log('channel: ', channel)
             setMessages(channel.messages)
@@ -38,11 +52,11 @@ const Messages = () => {
 
 
     return (
-        <div className='w-3/4 h-full bg-blue-600'>
+        <div className='w-3/4 h-full bg-blue-600 relative'>
             <div className='flex flex-col py-6 gap-6 overflow-y-auto max-h-[90%] p-6'>
                 {messages?.map((message, index) => (
-                    <div key={message.message_id} className={`w-full flex ${message.user_id == userID ? 'justify-start': 'justify-end'} `}>
-                        {message.user_id == userID ? 
+                    <div key={message.message_id} className={`w-full flex ${message.user_id == currentUser?.user_id ? 'justify-start': 'justify-end'} `}>
+                        {message.user_id == currentUser?.user_id ? 
                             <div className='flex w-3/4 bg-violet-800 py-1 px-2 rounded-md'>
                                 <img 
                                     className='w-12 h-12 rounded-full object-cover' 
@@ -69,7 +83,7 @@ const Messages = () => {
                 ))}
             </div>
 
-            <div className='w-full mt-4 relative items-center'>
+            <div className='w-full mt-4 items-center absolute bottom-4'>
                 <InputMessage />
             </div>
         </div>
