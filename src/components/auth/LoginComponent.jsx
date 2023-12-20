@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import revochat_QR from '../../assets/images/revochat_QR.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import authApi from '@/apis/auth.api';
 import { useRouter } from 'next/navigation';
 import { DefaultLoader } from '../utils/Loaders';
+import { RevochatContext } from '@/context/context';
 
 const LoginComponent = () => {
 
     const router = useRouter()
+    const { setCurrentUser } = useContext(RevochatContext);
     const [user, setUser] = useState({
         username: "",
         password: ""
@@ -34,7 +36,7 @@ const LoginComponent = () => {
             setLoader(false)
             localStorage.setItem('token', res.data.user.token)
             localStorage.setItem('user', JSON.stringify(res.data.user))
-            router.push('/')
+            router.push('/chat')
         })
         .catch(err => {
             console.log(err)
