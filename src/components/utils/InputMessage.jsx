@@ -4,7 +4,7 @@ import { FaPaperPlane, FaPlusCircle } from 'react-icons/fa';
 
 const InputMessage = () => {
     
-    const { revochatClient, revoLogin } = useContext(RevochatContext);
+    const { revochatClient, revoLogin, selectedChannel } = useContext(RevochatContext);
     const [message, setMessage] = useState('');
     const [client, setClient] = useState(null)
 
@@ -19,7 +19,7 @@ const InputMessage = () => {
     const sendMessage = async () => {
         console.log('send message')
         try{
-            client.message.send({channel_id: "1702227951051", message: message})
+            client.message.send({channel_id: selectedChannel?.channel_id, message: message})
             console.log('message send')
             setMessage('')
         }

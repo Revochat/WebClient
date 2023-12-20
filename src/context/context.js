@@ -14,10 +14,11 @@ export const RevochatContext = createContext();
 
         const [currentUser, setCurrentUser] = useState({});
         const [revoLogin, setRevoLogin] = useState(false);
+        const [selectedChannel, setSelectedChannel] = useState({});
 
         useEffect(() => {
-            initRevochat();
-        }, [])
+            if(!currentUser.user_id) initRevochat();
+        }, [currentUser])
 
         const initRevochat = () => {
             try {
@@ -29,6 +30,8 @@ export const RevochatContext = createContext();
                     if(user.error) return console.log(user.error)
                     console.log(user)
                     setCurrentUser(user)
+                    setSelectedChannel(user.channels[0])
+                    console.log('selectedChannel', user.channels[0])
                     setRevoLogin(true)
                     console.log("Connected as " + user.username +  " (" + user.user_id + ")")  
                     console.log("You have " + user.friends.length + " friends")
@@ -59,10 +62,14 @@ export const RevochatContext = createContext();
                 currentUser,
                 setCurrentUser,
                 revoLogin,
+                selectedChannel,
+                setSelectedChannel,
 
             }}>
             {children} 
         </RevochatContext.Provider>
     )
 }
+
+export default RevochatProvider;
 

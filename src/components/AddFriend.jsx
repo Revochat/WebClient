@@ -6,11 +6,18 @@ import { BsFillSendPlusFill } from "react-icons/bs";
 
 const AddFriend = () => {
 
-    const { revochatClient } = useContext(RevochatContext);
+    const { revochatClient, revoLogin } = useContext(RevochatContext);
    
     const [friendID, setFriendID] = useState("");
+    const [client, setClient] = useState(null)
 
-  
+    useEffect(() => {
+        console.log('revoLogin component: ', revoLogin)
+        revochatClient.on("user.connect", () => {
+            console.log('user connect')
+            setClient(revochatClient)
+        })
+    }, [revoLogin])
 
 
     const handleChange = (e) => {
@@ -19,8 +26,8 @@ const AddFriend = () => {
 
     const addFriend = () => {
         console.log('add friend ...')
-        revochatClient.user.addFriend({friend_id: friendID});
-        console.log('1 SEULE FOIS')
+        client.user.addFriend({friend_id: friendID});
+        console.log('friend request send')
     }
 
     return (

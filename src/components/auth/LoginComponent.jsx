@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import revochat_QR from '../../assets/images/revochat_QR.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import authApi from '@/apis/auth.api';
 import { useRouter } from 'next/navigation';
 import { DefaultLoader } from '../utils/Loaders';
+import { RevochatContext } from '@/context/context';
 
 const LoginComponent = () => {
 
     const router = useRouter()
+    const { setCurrentUser } = useContext(RevochatContext);
     const [user, setUser] = useState({
         username: "",
         password: ""
