@@ -13,9 +13,6 @@ const AddChannel = () => {
     }
 
     const addChannel = () => {
-        console.log(friendID);
-
-        console.lo
         revochatClient.channel.create({ category: "DM", friend_id: friendID })
 
     }

@@ -1,11 +1,21 @@
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Messages from './Messages';
 import { RevochatContext } from '@/context/context';
+import EventList from '@/context/EventList';
 
 const Channel = () => {
 
-    const { selectedChannel } = useContext(RevochatContext);
+    const { revochatClient, selectedChannel, revoLogin } = useContext(RevochatContext);
+    const [client, setClient] = useState(null)
+
+    useEffect(() => {
+        revochatClient.on(EventList.User.Connect, () => {
+            setClient(revochatClient)
+        })
+    }, [revoLogin])
+
+
     return (
         <div className='w-full h-full flex flex-col'>
             <div className='w-full h-16 bg-gray-500 flex items-center p-4 text-2xl font-bold'>
