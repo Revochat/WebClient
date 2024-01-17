@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AddFriend from '../AddFriend';
 import AddChannel from '../AddChannel';
 import { RevochatContext } from '@/context/context';
@@ -7,6 +7,16 @@ import { RevochatContext } from '@/context/context';
 const MenuBar = () => {
 
     const { currentUser, selectedChannel, setSelectedChannel } = useContext(RevochatContext);
+
+    useEffect(() => {
+        if(!JSON.parse(localStorage.getItem("selectedChannel"))) setSelectedChannel(currentUser?.channels[0])
+        else setSelectedChannel(JSON.parse(localStorage.getItem("selectedChannel")))
+    }, [])
+
+    const handleSelectedChannel = (channel) => {
+        setSelectedChannel(channel)
+        localStorage.setItem("selectedChannel", JSON.stringify(channel))
+    }
 
     return (
         <div className='h-full w-full bg-blue-200'>
@@ -24,7 +34,7 @@ const MenuBar = () => {
             Channels:
             <div>
                 {currentUser?.channels?.map((channel, index) => (
-                <div key={channel.channel_id} onClick={() => setSelectedChannel(channel)} className={`cursor-pointer font-bold ${selectedChannel?.channel_id == channel?.channel_id? 'text-red-500': ''}`}>
+                <div key={channel.channel_id} onClick={()=>handleSelectedChannel(channel)} className={`cursor-pointer font-bold ${selectedChannel?.channel_id == channel?.channel_id? 'text-red-500': ''}`}>
                     {channel?.channel_name}
                 </div>
                 ))}
