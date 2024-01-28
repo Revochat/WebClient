@@ -10,7 +10,7 @@ const Messages = () => {
     const ref = useRef(null);
     const [messages, setMessages] = useState([]);
     const [load, setLoad] = useState(true);
-    const [client, setClient] = useState(null)
+    const [client, setClient] = useState(null);
 
     useEffect(() => {
         revochatClient.on("user.connect", () => {
@@ -29,8 +29,8 @@ const Messages = () => {
                 console.log('channel: ', channel.messages)
                 setMessages(channel.messages)
                 setLoad(false)
-        })
 
+        })
     }, [selectedChannel?.channel_id, currentUser, client])
 
     useEffect(() => {
@@ -100,6 +100,7 @@ const Message = ({ message }) => {
                     />
                 </div>
             }
+            
         </div>
     )
 }
