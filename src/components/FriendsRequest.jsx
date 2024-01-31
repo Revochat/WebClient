@@ -55,7 +55,7 @@ const FriendsRequest = () => {
 
     const handleAddFriend = (username) => {
         console.log('add friend: ', username)
-        client.user.addFriend({ username: username })
+        client?.user?.addFriend({ username: username })
         .then((result) => {
             console.log(result)
             //remove friend from friendsRequest

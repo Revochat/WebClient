@@ -12,8 +12,6 @@ const AuthPage = () => {
 
     useEffect(() => {
         const url = `${pathname}?${searchParams}`
-        console.log(url)
-        console.log(type)
         // You can now use the current URL
       }, [pathname, searchParams])
   
