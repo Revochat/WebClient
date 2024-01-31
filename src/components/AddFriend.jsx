@@ -25,7 +25,14 @@ const AddFriend = () => {
 
     const addFriend = () => {
         console.log('add friend ...')
-       client.emit(EventList.User.AddFriend, { username: friendID })
+       try{
+        client.user.addFriend({ username: friendID })
+       }
+       catch(err){
+           console.log('error: ', err)
+           alert(err)
+       }
+        // client.emit(EventList.User.AddFriend, { username: friendID })
         console.log('friend request send')
     }
 

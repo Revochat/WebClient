@@ -19,7 +19,7 @@ const Channel = () => {
     return (
         <div className='w-full h-full flex flex-col'>
             <div className='w-full h-16 bg-gray-500 flex items-center p-4 text-2xl font-bold'>
-                <h1># {selectedChannel?.channel_name}</h1>
+                <h1># {selectedChannel?.channel_name || 'Pas de channel'}</h1>
             </div>
             <div className='h-full bg-red-200 overflow-hidden'>
                 <Messages />

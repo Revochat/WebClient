@@ -4,6 +4,7 @@ import AddFriend from '../AddFriend';
 import AddChannel from '../AddChannel';
 import { RevochatContext } from '@/context/context';
 import FriendsList from '../FriendsList';
+import FriendsRequest from '../FriendsRequest';
 
 const MenuBar = () => {
 
@@ -43,6 +44,7 @@ const MenuBar = () => {
 
         <div className='mt-4 p-4'>
             <FriendsList />
+            <FriendsRequest />
         </div>
 
         </div>

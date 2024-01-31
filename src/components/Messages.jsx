@@ -26,6 +26,7 @@ const Messages = () => {
             client.channel.get({channel_id: selectedChannel?.channel_id, limit: 25})
             
             client.on(EventList.Channel.Get, (channel) => {
+                console.log('channel Messages: ', channel.messages)
                 setMessages(channel.messages)
                 setLoad(false)
         })

@@ -18,6 +18,7 @@ const InputMessage = () => {
 
     const sendMessage = async () => {
         console.log('send message')
+        if(!selectedChannel?.channel_id) return alert('Pas de channel selectionné')
         try{
             client.message.send({channel_id: selectedChannel?.channel_id, message: message})
             console.log('message send')
