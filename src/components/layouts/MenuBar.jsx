@@ -32,7 +32,7 @@ const MenuBar = () => {
 
 
         <div className='mt-8 p-4'>
-            Channels:
+           <span className='font-bold'>Channels:</span> 
             <div>
                 {currentUser?.channels?.map((channel, index) => (
                 <div key={channel.channel_id} onClick={()=>handleSelectedChannel(channel)} className={`cursor-pointer font-bold  ${selectedChannel?.channel_id == channel?.channel_id? 'text-red-500': ''}`}>
@@ -42,7 +42,7 @@ const MenuBar = () => {
             </div>
         </div>
 
-        <div className='mt-4 p-4'>
+        <div className='p-4'>
             <FriendsList />
             <FriendsRequest />
         </div>

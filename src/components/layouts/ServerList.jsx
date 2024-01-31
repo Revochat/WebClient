@@ -1,5 +1,7 @@
-import React from 'react';
-
+'use client';
+import { RevochatContext } from '@/context/context';
+import React, { useContext } from 'react';
+import { IoIosLogOut } from "react-icons/io";
 //liste de noms de servers
 const servers = [
   {
@@ -25,8 +27,18 @@ const servers = [
 ];
 
 const ServerList = () => {
+
+  const { setCurrentUser } = useContext(RevochatContext);
+
+  const handleLogOut = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setCurrentUser(null);
+    window.location.reload();
+  }
+
   return (
-    <div className="h-full w-28 bg-red-300">
+    <div className="h-full w-28 bg-red-300 relative">
       <h1>ServerList</h1>
       <ul>
         {servers.map(server => (
@@ -44,6 +56,9 @@ const ServerList = () => {
           </li>
         ))}
       </ul>
+      <div className='absolute flex justify-center items-center bottom-4 left-0 w-full'>
+          <IoIosLogOut onClick={handleLogOut} className='cursor-pointer hover:scale-110 transition-all' size={26} />
+      </div>
     </div>
   );
 };
