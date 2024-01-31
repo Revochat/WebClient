@@ -1,3 +1,4 @@
+import EventList from '@/context/EventList';
 import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
 import { FaPaperPlane, FaPlusCircle } from 'react-icons/fa';
@@ -10,14 +11,14 @@ const InputMessage = () => {
 
     useEffect(() => {
         console.log('revoLogin component: ', revoLogin)
-        revochatClient.on("user.connect", () => {
-            console.log('user connect')
+        revochatClient.on(EventList.User.Connect, () => {
             setClient(revochatClient)
         })
     }, [revoLogin])
 
     const sendMessage = async () => {
         console.log('send message')
+        if(!selectedChannel?.channel_id) return alert('Pas de channel selectionné')
         try{
             client.message.send({channel_id: selectedChannel?.channel_id, message: message})
             console.log('message send')

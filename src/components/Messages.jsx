@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { messagesData } from '@/data/messages.data';
 import InputMessage from './utils/InputMessage';
 import { RevochatContext } from '@/context/context';
+import EventList from '@/context/EventList';
 
 const Messages = () => {
 
@@ -12,9 +13,8 @@ const Messages = () => {
     const [load, setLoad] = useState(true);
     const [client, setClient] = useState(null)
 
-
     useEffect(() => {
-        revochatClient.on("user.connect", () => {
+        revochatClient.on(EventList.User.Connect, () => {
             setClient(revochatClient)
         })
     }, [revoLogin])
@@ -23,27 +23,25 @@ const Messages = () => {
         if(!selectedChannel?.channel_id || !revoLogin || !client) return;
         console.log('channel.get')
 
-            // console.log('SELECTED CHANNEL: ', selectedChannel?.channel_id)
-            client.channel.get({channel_id: selectedChannel?.channel_id, limit: 50})
+            client.channel.get({channel_id: selectedChannel?.channel_id, limit: 25})
             
-            client.on('channel.get', (channel) => {
+            client.on(EventList.Channel.Get, (channel) => {
+                console.log('channel Messages: ', channel.messages)
                 setMessages(channel.messages)
                 setLoad(false)
-
         })
+
     }, [selectedChannel?.channel_id, currentUser, client])
 
     useEffect(() => {
         console.log('message.get')
         if(!client) return;
 
-        client.on('message.send', (message) => {
+        client.on(EventList.Message.Send, (message) => {
             console.log('message: ', message)
             setMessages(prevMessages => [...prevMessages, message.message])
             
         })
-        console.log('messages: ', messages)
-
     }, [client]); 
 
     useEffect(() => {

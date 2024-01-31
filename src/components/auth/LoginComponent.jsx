@@ -9,7 +9,7 @@ import { RevochatContext } from '@/context/context';
 const LoginComponent = () => {
 
     const router = useRouter()
-    const { setCurrentUser } = useContext(RevochatContext);
+    const { setCurrentUser, logUser } = useContext(RevochatContext);
     const [user, setUser] = useState({
         username: "",
         password: ""
@@ -35,7 +35,7 @@ const LoginComponent = () => {
             console.log(res)
             setLoader(false)
             localStorage.setItem('token', res.data.user.token)
-            localStorage.setItem('user', JSON.stringify(res.data.user))
+            logUser()
             router.push('/chat')
         })
         .catch(err => {

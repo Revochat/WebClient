@@ -1,4 +1,5 @@
 'use client';
+import EventList from '@/context/EventList';
 import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
 import { BsFillSendPlusFill } from "react-icons/bs";
@@ -12,9 +13,7 @@ const AddFriend = () => {
     const [client, setClient] = useState(null)
 
     useEffect(() => {
-        console.log('revoLogin component: ', revoLogin)
-        revochatClient.on("user.connect", () => {
-            console.log('user connect')
+        revochatClient.on(EventList.User.Connect, () => {
             setClient(revochatClient)
         })
     }, [revoLogin])
@@ -26,7 +25,14 @@ const AddFriend = () => {
 
     const addFriend = () => {
         console.log('add friend ...')
-        client.user.addFriend({friend_id: friendID});
+       try{
+        client.user.addFriend({ username: friendID })
+       }
+       catch(err){
+           console.log('error: ', err)
+           alert(err)
+       }
+        // client.emit(EventList.User.AddFriend, { username: friendID })
         console.log('friend request send')
     }
 
