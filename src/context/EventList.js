@@ -25,6 +25,8 @@ EventList.User = {
     AddFriend: "user.friend.add",
     RemoveFriend: "user.friend.remove",
     GetFriends: "user.friends.get",
+    GetFriendsReceived: "user.friends.received.get",
+    SetAvatar: "user.avatar.set",
 };
 
 EventList.Server = {
