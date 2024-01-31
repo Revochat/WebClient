@@ -45,6 +45,7 @@ const MenuBar = () => {
         <div className='p-4'>
             <FriendsList />
             <FriendsRequest />
+            
         </div>
 
         </div>

@@ -12,11 +12,11 @@ const AddFriend = () => {
     const [friendID, setFriendID] = useState("");
     const [client, setClient] = useState(null)
 
-    useEffect(() => {
-        revochatClient.on(EventList.User.Connect, () => {
-            setClient(revochatClient)
-        })
-    }, [revoLogin])
+        useEffect(() => {
+            revochatClient.on(EventList.User.Connect, () => {
+                setClient(revochatClient)
+            })
+        }, [revoLogin])
 
     useEffect(() => {
         console.log('addFriend()')

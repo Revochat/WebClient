@@ -8,3 +8,11 @@ export const DefaultLoader = () => {
         </div>
     );
 }
+
+export const PageLoader = () => {
+    return (
+        <div className="flex justify-center items-center w-screen h-screen">
+            <FaSpinner size={100} className="animate-spin text-primary" />
+        </div>
+    );
+}

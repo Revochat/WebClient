@@ -9,7 +9,7 @@ export const RevochatContext = createContext();
 
     export const RevochatProvider = ({children}) => {
         const revochatClient = new Revochat.Client({
-            url: "ws://localhost:4001",
+            url: process.env.REVO_CLIENT_URL,
             debug: false,
         })
 
