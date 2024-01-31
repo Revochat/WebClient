@@ -9,7 +9,7 @@ export const RevochatContext = createContext();
 
     export const RevochatProvider = ({children}) => {
         const revochatClient = new Revochat.Client({
-            url: "ws://localhost:3001",
+            url: "ws://localhost:4001",
             debug: false,
         })
 
@@ -42,6 +42,7 @@ export const RevochatContext = createContext();
                     setCurrentUser(user)
                     localStorage.setItem('user', JSON.stringify(user))
                     !selectedChannel && setSelectedChannel(user.channels[0])
+                    if(selectedChannel && user.channels.length === 0) setSelectedChannel({})
                     setRevoLogin(true)
                     console.log("Connected as " + user.username +  " (" + user.user_id + ")")  
                     console.log("You have " + user.friends.length + " friends")

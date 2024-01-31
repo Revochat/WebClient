@@ -23,7 +23,7 @@ EventList.User = {
     Get: "user.get",
     Connect: "user.connect",
     AddFriend: "user.friend.add",
-    RemoveFriend: "remove.friend"
+    RemoveFriend: "user.friend.remove"
 };
 
 EventList.Server = {

@@ -25,16 +25,22 @@ const FriendsList = () => {
                 currentUser.friends.push(removeFriend)
                 return;
             };
-            console.log("Friend removed:", result);
+            alert(result.success)
         })
       
     }, [client]); 
 
     const handleRemoveFriend = (friend) => {
         setRemoveFriend(friend)
-        client.emit(EventList.User.RemoveFriend, { username: friend.username })
-        currentUser.friends = currentUser.friends.filter(f => f.username !== friend.username)
-        console.log("try to remove friend with ID:", friend);
+        try{
+            console.log("try to remove friend with ID:", friend);
+            client.user.removeFriend({ username: friend.username })
+            currentUser.friends = currentUser.friends.filter(f => f.username !== friend.username)
+        }
+        catch(err){
+            console.log('error: ', err)
+            alert(err)
+        }
     };
 
     return (
