@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import revochat_QR from '../../assets/images/revochat_QR.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import authApi from '@/apis/auth.api';
 import { useRouter } from 'next/navigation';
