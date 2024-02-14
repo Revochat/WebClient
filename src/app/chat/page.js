@@ -20,7 +20,7 @@ const Page = () => {
 
     return (
         <div className='h-screen w-screen flex'>
-            <div className='flex'>
+            <div className='flex round'>
                 <ServerList />
                 <MenuBar />
             </div>

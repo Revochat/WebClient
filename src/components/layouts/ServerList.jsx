@@ -1,8 +1,14 @@
-'use client';
-import { RevochatContext } from '@/context/context';
-import React, { useContext } from 'react';
-import { IoIosLogOut } from "react-icons/io";
-//liste de noms de servers
+import React, { useState } from 'react';
+
+// Bouton ajouter un serveur
+const addButton = [
+  {
+    name: 'add server',
+    avatar: '',
+  },
+];
+
+// Liste de noms de serveurs
 const servers = [
   {
     id: 1,
@@ -27,38 +33,64 @@ const servers = [
 ];
 
 const ServerList = () => {
+  const [activeServer, setActiveServer] = useState(null);
 
-  const { setCurrentUser } = useContext(RevochatContext);
-
-  const handleLogOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setCurrentUser(null);
-    window.location.reload();
-  }
+  const handleServerClick = (serverId) => {
+    setActiveServer(serverId);
+  };
 
   return (
-    <div className="h-full w-28 bg-red-300 relative">
-      {/* <h1>ServerList</h1>
+    <div className="h-full w-28 bg-[#0E0E15] rounded-sm">
+      {/* <h1>ServerList</h1> */}
       <ul>
-        {servers.map(server => (
-          <li key={server.id} className="group  transition-all duration-500 ">
+        {addButton.map((button, index) => (
+          <li key={index} className="group transition-all duration-500">
             <div className="relative flex items-center mb-5 ml-5">
-              <img
-                className="rounded-full overflow-hidden w-12 h-12  hover:animate-pulse transform hover:scale-125 focus:scale-125 active:scale-125 transition-transform"
-                src={server.avatar}
-                alt={server.name}
-              />
+              <div
+                className={`relative flex items-center justify-center bg-[#1E1F25] text-white rounded-lg p-1 z-10 text-xs h-12 w-12 border-4 border-transparent cursor-pointer transition-all duration-300 hover:border-white active:ring active:ring-white active:ring-opacity-50 ${
+                  activeServer === 'addButton' ? 'border-4 border-white' : ''
+                }`}
+                onClick={() => handleServerClick('addButton')}
+              >
+                +
+              </div>
               <div className="absolute left-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-black text-white px-4 py-2 rounded-md whitespace-no-wrap w-32">
-                {server.name}
+                {button.name}
               </div>
             </div>
           </li>
         ))}
+
+        {servers.map((server) => (
+          <li key={server.id} className="group transition-all duration-500">
+            <div className="relative flex items-center mb-5 ml-5">
+              <div
+                className={`absolute top-8 right-5 flex items-center justify-center bg-red-500 text-white rounded-full p-1 z-10 text-xs h-4 w-4 ${
+                  activeServer === server.id ? 'border-2 border-white' : ''
+                }`}
+                onClick={() => handleServerClick(server.id)}
+              >
+                2
+              </div>
+              <div className='flex'>
+              <img
+                className={`rounded-lg overflow-hidden w-12 h-12 hover:animate-pulse transform hover:scale-125 focus:scale-125 active:scale-125 transition-transform hover:border-white border border-transparent cursor-pointer ${
+                  activeServer === server.id ? 'border-2 border-white' : ''
+                }`}
+                src={server.avatar}
+                alt={server.name}
+                onClick={() => handleServerClick(server.id)}
+              />
+               <div className="absolute left-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-black text-white px-4 py-2 rounded-md whitespace-no-wrap w-32">
+                {server.name}
+              </div>
+
+              </div>
+             
+            </div>
+          </li>
+        ))}
       </ul>
-      <div className='absolute flex justify-center items-center bottom-4 left-0 w-full'>
-          <IoIosLogOut onClick={handleLogOut} className='cursor-pointer hover:scale-110 transition-all' size={26} />
-      </div> */}
     </div>
   );
 };
