@@ -68,7 +68,7 @@ const LoginComponent = () => {
                         value={user.username}
                         name="username" 
                         type="text" 
-                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
                         onChange={handleChange}
                     />
                 </div>
@@ -78,10 +78,10 @@ const LoginComponent = () => {
                         value={user.password}
                         name="password" 
                         type={showPassword ? 'password' : 'text'} 
-                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
                         onChange={handleChange}
                     />
-                    <span className='absolute right-8 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+                    <span className='absolute right-8 top-8 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <FaEyeSlash size={22}/> : <FaEye size={22} />}
                     </span>
                 </div>
