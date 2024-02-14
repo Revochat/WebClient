@@ -39,7 +39,7 @@ const ServerList = () => {
 
   return (
     <div className="h-full w-28 bg-red-300 relative">
-      <h1>ServerList</h1>
+      {/* <h1>ServerList</h1>
       <ul>
         {servers.map(server => (
           <li key={server.id} className="group  transition-all duration-500 ">
@@ -58,7 +58,7 @@ const ServerList = () => {
       </ul>
       <div className='absolute flex justify-center items-center bottom-4 left-0 w-full'>
           <IoIosLogOut onClick={handleLogOut} className='cursor-pointer hover:scale-110 transition-all' size={26} />
-      </div>
+      </div> */}
     </div>
   );
 };

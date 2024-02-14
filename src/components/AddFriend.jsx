@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { BsFillSendPlusFill } from "react-icons/bs";
 
 
-const AddFriend = () => {
+const AddFriend = ({ setOpenAddFriend }) => {
 
     const { revochatClient, revoLogin } = useContext(RevochatContext);
    
@@ -30,6 +30,7 @@ const AddFriend = () => {
                 return;
             };
             setFriendID("")
+            setOpenAddFriend(false)
         })
     }, [client]); 
 
@@ -56,8 +57,8 @@ const AddFriend = () => {
     }
 
     return (
-        <div className='flex gap-2 items-center'>
-            <input onKeyDown={handleKeyDown} type="text" className='rounded-md outline-none px-2 py-1 h-fit' value={friendID} placeholder="Friend ID" onChange={handleChange} />
+        <div className='flex gap-2 items-center '>
+            <input onKeyDown={handleKeyDown} type="text" className='rounded-md outline-none px-2 py-1 h-fit text-black' value={friendID} placeholder="Friend ID" onChange={handleChange} />
             <button onClick={addFriend} > <BsFillSendPlusFill className='hover:text-primary hover:scale-110 transition-all' size={26} /> </button>
         </div>
     );

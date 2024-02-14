@@ -6,6 +6,7 @@ import { RevochatContext } from '@/context/context';
 import FriendsList from '../FriendsList';
 import FriendsRequest from '../FriendsRequest';
 import ProfilHeader from '../ProfilHeader';
+import DirectMessagesList from '../DirectMessagesList';
 
 const MenuBar = () => {
 
@@ -24,27 +25,14 @@ const MenuBar = () => {
     return (
         <div className='h-full w-[360px] bg-[#D9D9D9] p-4'>
             <ProfilHeader />
-        <div className='mt-10 items-center w-full flex justify-center'>
-            <AddFriend />
-        </div>
-        {/* <div className='mt-10 items-center w-full flex justify-center'>
-            <AddChannel />
-        </div> */}
-        <div className='mt-8 p-4'>
-           <span className='font-bold'>Channels:</span> 
-            <div>
-                {currentUser?.channels?.map((channel, index) => (
-                <div key={channel.channel_id} onClick={()=>handleSelectedChannel(channel)} className={`cursor-pointer font-bold  ${selectedChannel?.channel_id == channel?.channel_id? 'text-red-500': ''}`}>
-                    {channel?.channel_name}
-                </div>
-                ))}
+            <div className='mt-6'>
+               <DirectMessagesList messages={currentUser.channels} />
             </div>
-        </div>
+       
 
-        <div className='p-4'>
+        <div className='p-4 bg-primary rounded-xl mt-8'>
             <FriendsList />
             <FriendsRequest />
-            
         </div>
 
         </div>

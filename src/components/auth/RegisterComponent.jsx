@@ -54,7 +54,7 @@ const RegisterComponent = () => {
     return (
         <div className='relative w-full h-full flex justify-center'>
            <img src="/logo.svg" alt="logo" className='absolute top-20 left-20 w-28 h-28 cursor-pointer' onClick={() => router.push('/')} />
-           <div className='w-[520px] h-96 mt-52 flex flex-col gap-2'>
+           <div className='w-[520px] h-96 mt-40 flex flex-col gap-2'>
             <div className='text-center flex flex-col gap-3'>
                 <h2 className='font-bold text-black text-2xl'>Sign Up for Revochat</h2>
                 <p className='font-normal text-sm text-gray-400'>Get chatting with friends and family <br/> today by signing up for our chat app!</p>

@@ -34,7 +34,7 @@ const ProfilHeader = () => {
                 </div>
                 <div className='flex flex-col text-left gap-1 text-white'>
                     <h2 className='font-bold first-letter:uppercase'> {currentUser?.username || 'Digital Nomad'} </h2>
-                    <span className='text-xs'> {currentUser?.status || 'Offline'} </span>
+                    <span className='text-xs first-letter:uppercase'> {currentUser?.status || 'Offline'} </span>
                 </div>
             </div>
             <div className='flex gap-3 text-white items-start mt-2'>
