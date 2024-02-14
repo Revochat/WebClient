@@ -28,8 +28,8 @@ const HomeNavBar = () => {
                 <span className='cursor-pointer'>Github</span>
                 <span className='cursor-pointer'>Support</span>
                 <div className='flex gap-4'>
-                    <span className='rounded-md bg-[#3e4bc3] py-2 px-3 cursor-pointer' onClick={() => router.push('/auth/login')}>Login</span>
-                    <span className='rounded-md bg-[#2238FF] py-2 px-3 cursor-pointer' onClick={() => router.push('/auth/register')}>Register</span>
+                    <button className='rounded-md bg-[#3e4bc3] py-2 px-3 cursor-pointer' onClick={() => router.push('/auth/login')}>Login</button>
+                    <button className='rounded-md bg-[#2238FF] py-2 px-3 cursor-pointer' onClick={() => router.push('/auth/register')}>Register</button>
                 </div>
             </div>
         </nav>

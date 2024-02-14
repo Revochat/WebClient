@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #000000;
+}
 
 /* style scrollbars  */
 /* Style the main scrollbar track */

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import revochat_QR from '../../assets/images/revochat_QR.png';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import authApi from '@/apis/auth.api';
 import { useRouter } from 'next/navigation';
@@ -12,9 +11,11 @@ const RegisterComponent = () => {
         username: "",
         password: ""
     })
+    const [confirm_password, setConfirmPassword] = useState("")
 
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState(false)
+    const [message, setMessage] = useState('')
     const [loader, setLoader] = useState(false)
 
 
@@ -26,8 +27,15 @@ const RegisterComponent = () => {
     }
 
     const handleSubmit = () => {
+        setMessage('')
         setError(false)
         setLoader(true)
+        if(user.password !== confirm_password) {
+            setError(true)
+            setLoader(false)
+            setMessage('Vos mots de passe ne correspondent pas')
+            return
+        }
         authApi.register(user)
         .then(res => {
             console.log(res)
@@ -38,50 +46,65 @@ const RegisterComponent = () => {
             console.log(err)
             setError(true)
             setLoader(false)
+            setMessage('Une erreur est survenue')
         })
         
     }
 
     return (
-        <div className='flex flex-col gap-8 justify-center items-center mt-40 text-white'>
-            <h1 className='text-5xl font-bold uppercase'>Register</h1>
-            <div className='bg-violet-400 w-3/4 xl:w-1/2 flex gap-6 p-8 items-center rounded-md shadow-xl'>
-                <div className='flex flex-col gap-6 w-full text-2xl'>
-                    <input 
+        <div className='relative w-full h-full flex justify-center'>
+           <img src="/logo.svg" alt="logo" className='absolute top-20 left-20 w-28 h-28 cursor-pointer' onClick={() => router.push('/')} />
+           <div className='w-[520px] h-96 mt-40 flex flex-col gap-2'>
+            <div className='text-center flex flex-col gap-3'>
+                <h2 className='font-bold text-black text-2xl'>Sign Up for Revochat</h2>
+                <p className='font-normal text-sm text-gray-400'>Get chatting with friends and family <br/> today by signing up for our chat app!</p>
+            </div>
+          
+            <div className='flex flex-col gap-5 mt-10 w-full'>
+                <div className='w-full px-8'>
+                    <label htmlFor="username" className='text-primary font-semibold'>Your email</label>
+                    <input
+                        value={user.username}
                         name="username" 
                         type="text" 
-                        placeholder='Username' 
-                        className='w-full px-3 py-2 bg-gray-700 rounded-sm'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
                         onChange={handleChange}
                     />
-                    <div className='relative items-center'>
-                        <input 
-                            name="password" 
-                            type={showPassword? 'password': 'text'} 
-                            placeholder='Password' 
-                            className='w-full px-3 py-2 bg-gray-700 rounded-sm' 
-                            onChange={handleChange}
-                        />
-                        <div className='absolute top-0 h-full right-2 items-center flex justify-center'>
-                            {showPassword? 
-                                <FaEyeSlash size={28} className='cursor-pointer' onClick={() => setShowPassword(!showPassword)} />:
-                                <FaEye size={28} className='cursor-pointer' onClick={() => setShowPassword(!showPassword)} />
-                            }
-                        </div>
-                        
-                    </div>
-                    <div className='flex justify-center items-center pt-2'>
-                        <button className='bg-blue-500 text-2xl font-bold px-4 py-2 rounded-md shadow-md' onClick={handleSubmit}>Register</button>
-                    </div>
                 </div>
-
-                <div className='flex justify-center'>
-                    <img src={revochat_QR.src} alt='revochat_QR' className='w-[60%]' />
+                <div className='w-full px-8 relative'>
+                    <label htmlFor="password" className='text-primary font-semibold'>Password</label>
+                    <input
+                        value={user.password}
+                        name="password" 
+                        type={showPassword ? 'password' : 'text'} 
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
+                        onChange={handleChange}
+                    />
+                    <span className='absolute right-8 top-8 cursor-pointer' onClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <FaEyeSlash size={22}/> : <FaEye size={22} />}
+                    </span>
+                </div>
+                <div className='w-full px-8'>
+                    <label htmlFor="confirm_password" className='text-primary font-semibold'>Confirm Password</label>
+                    <input
+                        value={confirm_password}
+                        name="confirm_password" 
+                        type="text" 
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
                 </div>
             </div>
-            {loader && <DefaultLoader/> }
-            {error && <p className='text-red-500 text-xl font-semibold'>Server Error</p>}
+            <div className='flex justify-center mt-20 flex-col gap-2 items-center'>
+                <button className='w-4/6 rounded-xl text-white bg-primary py-2 hover:opacity-80' onClick={handleSubmit}>Create an account</button>
+            </div>
+           
+           <div className='flex flex-col justify-center text-center items-center'>
+                {loader && <DefaultLoader/> }
+                {error && <p className='text-red-500 font-semibold'> {message} </p>}
+           </div>
 
+           </div>
         </div>
     );
 }

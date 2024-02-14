@@ -5,6 +5,7 @@ import Messages from '@/components/Messages';
 import ServerList from '@/components/layouts/ServerList';
 import MenuBar from '@/components/layouts/MenuBar';
 import Channel from '@/components/Channel';
+import { PageLoader } from '@/components/utils/Loaders';
 
 const Page = () => {
 
@@ -15,7 +16,7 @@ const Page = () => {
             setLoad(false)
         }
     }, [])
-    if(load) return <div>Loading...</div>
+    if(load) return <PageLoader />
 
     return (
         <div className='h-screen w-screen flex'>
@@ -26,7 +27,6 @@ const Page = () => {
             <div className='w-full h-full'>
                 <Channel />
             </div>
-                
         </div>
     );
 }
