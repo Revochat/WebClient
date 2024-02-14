@@ -15,14 +15,14 @@ const DirectMessagesList = ({ messages }) => {
 
     return (
         <div className='rounded-xl bg-primary text-white'>
-            <div className='flex gap-2 items-center p-4'>
-                {!show ? <FaChevronRight onClick={() => setShow(true)} className='cursor-pointer' /> : <FaChevronDown onClick={() => setShow(false)} className='cursor-pointer' />}
-                <h1>Direct Messages</h1>
+            <div className='flex gap-2 items-center p-4 cursor-pointer' onClick={() => setShow(!show)}>
+                {!show ? <FaChevronRight size={18} /> : <FaChevronDown size={18} />}
+                <h1 className='font-semibold '>Direct Messages</h1>
             </div>
             <div className='mt-2'>
-                <div className='flex items-center cursor-pointer px-4 hover:bg-[#1E78D0]' onClick={() => setOpenAddFriend(true)}>
+                <div className='flex items-center gap-2 cursor-pointer px-4 hover:bg-[#1E78D0]' onClick={() => setOpenAddFriend(!openAddFriend)}>
                     <GoPlus size={30} className='cursor-pointer' />
-                    <span className='ml-2' >Add a friend</span>
+                    <span className='' >Add a friend</span>
                 </div>
                <div className='px-4'>{openAddFriend && <AddFriend setOpenAddFriend={setOpenAddFriend} />}</div> 
                 <div className='mt-2'>

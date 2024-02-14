@@ -74,7 +74,11 @@ const ServerList = () => {
 };
 
 
-const ServerItem = ({ server, handleServerClick, activeServer }) => (
+const ServerItem = ({ server, handleServerClick, activeServer }) => {
+
+  const [ isHovered, setIsHovered ] = useState(false)
+
+  return (
     <li key={server.id} className="transition-all duration-500">
       <div className="relative flex items-center mb-5 ml-5">
         <div
@@ -93,14 +97,16 @@ const ServerItem = ({ server, handleServerClick, activeServer }) => (
             src={server.avatar}
             alt={server.name}
             onClick={() => handleServerClick(server.id)}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           />
-          <div className="absolute left-12 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-black text-white px-4 py-2 rounded-md whitespace-no-wrap w-32">
-            {server.name}
-          </div>
+          {isHovered && <div className={`absolute items-center left-14 z-10 transition-all bg-black text-white px-4 py-2 rounded-md w-fit`}>
+           <span className='flex whitespace-nowrap'>{server.name}</span> 
+          </div>}
         </div>
         
       </div>
     </li>
-);
+)};
 
 export default ServerList;
