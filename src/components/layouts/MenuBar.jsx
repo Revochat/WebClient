@@ -5,6 +5,7 @@ import AddChannel from '../AddChannel';
 import { RevochatContext } from '@/context/context';
 import FriendsList from '../FriendsList';
 import FriendsRequest from '../FriendsRequest';
+import ProfilHeader from '../ProfilHeader';
 
 const MenuBar = () => {
 
@@ -21,16 +22,14 @@ const MenuBar = () => {
     }
 
     return (
-        <div className='h-full w-full bg-blue-200'>
-            <h1>MenuBar</h1>
+        <div className='h-full w-[360px] bg-[#D9D9D9] p-4'>
+            <ProfilHeader />
         <div className='mt-10 items-center w-full flex justify-center'>
             <AddFriend />
         </div>
         {/* <div className='mt-10 items-center w-full flex justify-center'>
             <AddChannel />
         </div> */}
-
-
         <div className='mt-8 p-4'>
            <span className='font-bold'>Channels:</span> 
             <div>

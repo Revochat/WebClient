@@ -53,9 +53,9 @@ const LoginComponent = () => {
                 <p className='font-normal text-sm text-gray-400'>Welcome back ! Sign in using your <br/> social account or email to continue us</p>
             </div>
             <div className='mt-10 flex justify-center gap-6'>
-                <img className='rounded-full border-black p-[10px] border cursor-pointer' src="/facebook.svg" alt="facebook" />
-                <img className='rounded-full border-black p-[10px] border cursor-pointer' src="/google.svg" alt="google" />
-                <img className='rounded-full border-black p-[10px] border cursor-pointer' src="/facebook.svg" alt="facebook" />
+                <img className='rounded-full w-[52px] border-black p-[10px] border cursor-pointer' src="/facebook.svg" alt="facebook" />
+                <img className='rounded-full w-[52px] border-black p-[10px] border cursor-pointer' src="/google.svg" alt="google" />
+                <img className='rounded-full w-[52px] border-black p-[10px] border cursor-pointer' src="/X.svg" alt="X" />
             </div>
             <div className='flex justify-center mt-4 gap-3 items-center'>
                 <hr className="w-[40%] h-[1px] bg-black mx-0 my-[10px]" /> <span className='text-gray-400'>OR</span> <hr className="w-[40%] h-[1px] bg-black mx-0 my-[10px]" />
