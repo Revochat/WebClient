@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Messages from './Messages';
 import { RevochatContext } from '@/context/context';
 import EventList from '@/context/EventList';
+import { VideoPlayer } from './VideoPlayer';
 
 const Channel = () => {
 
@@ -23,6 +24,7 @@ const Channel = () => {
             </div>
             <div className='h-full bg-red-200 overflow-hidden'>
                 <Messages />
+                {/* <VideoPlayer /> */}
             </div>
         </div>
     );
