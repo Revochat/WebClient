@@ -89,7 +89,7 @@ const Message = ({ message }) => {
                             <p> {message.message} </p>
                         </div>
                     </div>
-                    <span className='mr-14 mt-1 italic text-xs text-white'> {message.createdAt.slice(11,19)} </span>
+                    <span className='text-end mr-14 mt-1 italic text-xs text-white'> {message.createdAt.slice(11,19)} </span>
                 </div>
             </div>
 
