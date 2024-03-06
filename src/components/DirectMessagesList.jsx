@@ -14,7 +14,7 @@ const DirectMessagesList = ({ messages }) => {
     const randomNumber = Math.floor(Math.random() * 10)
 
     return (
-        <div className='rounded-xl bg-primary text-white'>
+        <div className='rounded-xl bg-[#033255] text-white'>
             <div className='flex gap-2 items-center p-4 cursor-pointer' onClick={() => setShow(!show)}>
                 {!show ? <FaChevronRight size={18} /> : <FaChevronDown size={18} />}
                 <h1 className='font-semibold '>Direct Messages</h1>
@@ -29,7 +29,7 @@ const DirectMessagesList = ({ messages }) => {
                     {show && messages?.map((message) => (
                         <div key={message.channel_id}>
                             {message?.members?.filter(member => member.user_id != currentUser.user_id).map((member) => (
-                                <div key={member.user_id} className='flex justify-between items-center cursor-pointer hover:bg-[#1E78D0] rounded-md px-6 py-2'>
+                                <div key={member.user_id} className='flex justify-between items-center cursor-pointer hover:bg-[#1E78D0] rounded-md px-6 py-2' onClick={() => setSelectedChannel(message)}>
                                     <div className='flex items-center gap-3'>
                                         <div className='relative w-10 h-10'>
                                             <img src='https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector.png' alt={member.username} className='w-full h-full rounded-full object-cover' />
