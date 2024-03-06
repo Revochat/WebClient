@@ -62,7 +62,7 @@ const Messages = () => {
                 <div ref={ref} />
             </div>
 
-            <div className='w-full px-10 mt-4 items-center absolute bottom-4'>
+            <div className='w-full mt-4 items-center absolute bottom-4'>
                 <InputMessage />
             </div>
         </div>

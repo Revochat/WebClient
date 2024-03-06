@@ -42,7 +42,7 @@ const ServerList = () => {
   };
 
   return (
-    <div className="h-full w-20 bg-[#0E0E15] rounded-sm">
+    <div className="h-full w-20 bg-[#0E0E15]">
       {/* <h1>ServerList</h1> */}
       <ul className='mt-4'>
         {servers?.map((server) => (
