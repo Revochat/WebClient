@@ -77,7 +77,7 @@ const LoginComponent = () => {
                     <input
                         value={user.password}
                         name="password" 
-                        type={showPassword ? 'password' : 'text'} 
+                        type={showPassword ? 'text' : 'password'} 
                         className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
                         onChange={handleChange}
                     />

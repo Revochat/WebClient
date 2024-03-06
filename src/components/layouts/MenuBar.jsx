@@ -23,7 +23,7 @@ const MenuBar = () => {
     }
 
     return (
-        <div className='h-full w-[360px] bg-[#afadad] p-4'>
+        <div className='h-full w-[360px] bg-[#282525] p-4'>
             <ProfilHeader />
             <div className='mt-6'>
                <DirectMessagesList messages={currentUser.channels} />

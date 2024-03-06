@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import Messages from './Messages';
 import { RevochatContext } from '@/context/context';
 import EventList from '@/context/EventList';
-import { VideoPlayer } from './VideoPlayer';
+import ChannelHeader from '@/components/shared/ChannelHeader';
+// import { VideoPlayer } from './VideoPlayer';
 
 const Channel = () => {
 
@@ -19,10 +20,8 @@ const Channel = () => {
 
     return (
         <div className='w-full h-full flex flex-col'>
-            <div className='w-full h-16 bg-gray-500 flex items-center p-4 text-2xl font-bold'>
-                <h1># {selectedChannel?.channel_name || 'Pas de channel'}</h1>
-            </div>
-            <div className='h-full bg-red-200 overflow-hidden'>
+            <ChannelHeader />
+            <div className='h-full bg-[#1E1E1E] overflow-hidden'>
                 <Messages />
                 {/* <VideoPlayer /> */}
             </div>

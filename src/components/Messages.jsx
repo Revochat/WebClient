@@ -54,7 +54,7 @@ const Messages = () => {
 
 
     return (
-        <div className='w-3/4 h-full bg-blue-600 relative'>
+        <div className='w-full h-full relative'>
             <div className='flex flex-col py-6 gap-6 overflow-y-auto max-h-[90%] p-6'>
                 {messages?.map((message) => (
                     <Message key={`${message.message_id}`} message={message} />
@@ -62,7 +62,7 @@ const Messages = () => {
                 <div ref={ref} />
             </div>
 
-            <div className='w-full mt-4 items-center absolute bottom-4'>
+            <div className='w-full px-10 mt-4 items-center absolute bottom-4'>
                 <InputMessage />
             </div>
         </div>

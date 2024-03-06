@@ -26,21 +26,23 @@ const ProfilHeader = () => {
     }
 
     return (
-        <div className='w-[90%] h-14 flex justify-between'>
-            <div className='flex items-center gap-3'>
-                <div className='relative w-10 h-10'>
-                    <img className='w-full h-full rounded-full object-cover' src='https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-man-avatar-wearing-gray-suit-png-image_6102786.png' alt="avatar" />
-                    <div className={`absolute bottom-[2px] right-[2px] rounded-full w-2 h-2 ${colorStatus()}`}></div>
+        <div className='w-full h-14'>
+            <div className='w-[92%] p-2 flex justify-between rounded-md hover:shadow-lg transition'>
+                <div className='flex items-center gap-3'>
+                    <div className='relative w-10 h-10'>
+                        <img className='w-full h-full rounded-full object-cover' src='https://png.pngtree.com/png-vector/20220807/ourmid/pngtree-man-avatar-wearing-gray-suit-png-image_6102786.png' alt="avatar" />
+                        <div className={`absolute bottom-[2px] right-[2px] rounded-full w-2 h-2 ${colorStatus()}`}></div>
+                    </div>
+                    <div className='flex flex-col text-left gap-1 text-white'>
+                        <h2 className='font-bold first-letter:uppercase'> {currentUser?.username || 'Digital Nomad'} </h2>
+                        <span className='text-xs first-letter:uppercase'> {currentUser?.status || 'Offline'} </span>
+                    </div>
                 </div>
-                <div className='flex flex-col text-left gap-1 text-white'>
-                    <h2 className='font-bold first-letter:uppercase'> {currentUser?.username || 'Digital Nomad'} </h2>
-                    <span className='text-xs first-letter:uppercase'> {currentUser?.status || 'Offline'} </span>
+                <div className='flex gap-3 text-white items-start mt-2'>
+                    {isMuted ? <IoMicOffSharp className='cursor-pointer' size={22} onClick={() => setIsMuted(false)} /> : <IoMicSharp className='cursor-pointer' size={22} onClick={() => setIsMuted(true)} />}
+                    {isDeafened ? <HiOutlineSpeakerXMark className='cursor-pointer' size={22} onClick={() => setIsDeafened(false)} /> : <HiOutlineSpeakerWave className='cursor-pointer' size={22} onClick={() => setIsDeafened(true)} />}
+                    <IoIosSettings className='cursor-pointer' size={22} />
                 </div>
-            </div>
-            <div className='flex gap-3 text-white items-start mt-2'>
-                {isMuted ? <IoMicOffSharp className='cursor-pointer' size={22} onClick={() => setIsMuted(false)} /> : <IoMicSharp className='cursor-pointer' size={22} onClick={() => setIsMuted(true)} />}
-                {isDeafened ? <HiOutlineSpeakerXMark className='cursor-pointer' size={22} onClick={() => setIsDeafened(false)} /> : <HiOutlineSpeakerWave className='cursor-pointer' size={22} onClick={() => setIsDeafened(true)} />}
-                <IoIosSettings className='cursor-pointer' size={22} />
             </div>
         </div>
     );

@@ -19,15 +19,7 @@ const Page = () => {
     if(load) return <PageLoader />
 
     return (
-        <div className='h-screen w-screen flex'>
-            <div className='flex'>
-                <ServerList />
-                <MenuBar />
-            </div>
-            <div className='w-full h-full'>
-                <Channel />
-            </div>
-        </div>
+        <Channel />
     );
 }
 
