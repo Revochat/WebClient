@@ -47,7 +47,7 @@ const LoginComponent = () => {
     return (
         <div className='relative w-full h-full flex justify-center'>
            <img src="/logo.svg" alt="logo" className='absolute top-20 left-20 w-28 h-28 cursor-pointer' onClick={() => router.push('/')} />
-           <div className='w-[520px] h-96 mt-40 flex flex-col gap-2'>
+           <div className='w-[520px] flex flex-col gap-2 self-center'>
             <div className='text-center flex flex-col gap-3'>
                 <h2 className='font-bold text-black text-2xl'>Log In to Revochat</h2>
                 <p className='font-normal text-sm text-gray-400'>Welcome back ! Sign in using your <br/> social account or email to continue us</p>
@@ -89,6 +89,7 @@ const LoginComponent = () => {
             <div className='flex justify-center mt-20 flex-col gap-2 items-center'>
                 <button className='w-4/6 rounded-xl text-white bg-primary py-2 hover:opacity-80' onClick={handleSubmit}>Log In</button>
                 <span className='text-center text-[#24786D] font-semibold cursor-pointer hover:opacity-80'>Forgot password ?</span>
+                <span>Don't have an account ? <span className='text-[#24786D] font-semibold cursor-pointer hover:opacity-80' onClick={() => router.push('/auth/register')}>Sign Up</span></span>
             </div>
            
            <div className='flex flex-col justify-center text-center items-center'>
