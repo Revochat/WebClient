@@ -16,6 +16,8 @@ export const RevochatContext = createContext();
         const [currentUser, setCurrentUser] = useState({});
         const [revoLogin, setRevoLogin] = useState(false);
         const [selectedChannel, setSelectedChannel] = useState({})
+        const [openCreateServerModal, setOpenCreateServerModal] = useState(false);
+        console.log('context opencreateserver', openCreateServerModal)
 
         useEffect(() => {
             if(!currentUser.user_id) initRevochat();
@@ -66,6 +68,8 @@ export const RevochatContext = createContext();
                 revoLogin,
                 selectedChannel,
                 setSelectedChannel,
+                openCreateServerModal,
+                setOpenCreateServerModal,
 
             }}>
             {children} 
