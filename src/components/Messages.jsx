@@ -22,7 +22,6 @@ const Messages = () => {
     
     useEffect(() => {
         if(!selectedChannel?.channel_id || !revoLogin || !client) return;
-        console.log('channel.get')
 
             client.channel.get({channel_id: selectedChannel?.channel_id, limit: 25})
             
@@ -35,11 +34,9 @@ const Messages = () => {
     }, [selectedChannel?.channel_id, currentUser, client])
 
     useEffect(() => {
-        console.log('message.get')
         if(!client) return;
 
         client.on(EventList.Message.Send, (message) => {
-            console.log('message: ', message)
             setMessages(prevMessages => [...prevMessages, message.message])
             
         })

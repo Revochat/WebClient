@@ -11,19 +11,16 @@ const InputMessage = () => {
     const [client, setClient] = useState(null)
 
     useEffect(() => {
-        console.log('revoLogin component: ', revoLogin)
         revochatClient.on(EventList.User.Connect, () => {
             setClient(revochatClient)
         })
     }, [revoLogin])
 
     const sendMessage = async () => {
-        console.log('send message', selectedChannel?.channel_id)
         if(!message) return;
         if(!selectedChannel?.channel_id) return alert('Pas de channel selectionné')
         try{
             client.message.send({channel_id: selectedChannel?.channel_id, message: message})
-            console.log('message send')
             setMessage('')
         }
         catch(err){
