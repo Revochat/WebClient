@@ -10,7 +10,7 @@ import { receiveMessages } from '@/apis/sockets/sendMessage';
 
 const Messages = ({ channelMessages }) => {
 
-    const { revochatClient, selectedChannel, revoLogin } = useContext(RevochatContext);
+    const { revochatClient, selectedChannel } = useContext(RevochatContext);
     const ref = useRef(null);
     const [messages, setMessages] = useState([]);
 
@@ -22,13 +22,11 @@ const Messages = ({ channelMessages }) => {
     useEffect(() => {
         // Call receiveMessages function when the component mounts
         const token = localStorage.getItem("token");
-        if (revochatClient && revoLogin && selectedChannel?.channel_id) {
             receiveMessages(token, (message) => {
                 // Update the messages state with the new message
                 setMessages(prevMessages => [...prevMessages, message.message]);
             });
-        }
-    }, [revochatClient, revoLogin, selectedChannel]);
+    }, []);
 
 
     useEffect(() => {
