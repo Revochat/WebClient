@@ -8,27 +8,9 @@ import { toast } from './ui/use-toast';
 import { cn } from '@/lib/utils';
 
 
-const AddFriend = ({ setOpenAddFriend }) => {
+const AddFriend = () => {
 
     const [username, setUsername] = useState("");
-    const [client, setClient] = useState(null)
-
-    useEffect(() => {
-        console.log('addFriend()')
-        if(!client) return;
-
-        client.on(EventList.User.AddFriend, (result) => {
-            console.log('add.friend: ', result)
-            if (result.error) {
-                console.error("Error:", result.error)
-                alert(result.error)
-                return;
-            };
-            setFriendID("")
-            setOpenAddFriend(false)
-        })
-    }, [client]); 
-
 
     const handleChange = (e) => {
         setUsername(e.target.value);
@@ -41,6 +23,7 @@ const AddFriend = ({ setOpenAddFriend }) => {
     }
 
     const Add = async () => {
+        console.log('Add friend')
        try{
             const token = localStorage.getItem('token')
             await addFriend(token, username, (user) => {
@@ -67,7 +50,6 @@ const AddFriend = ({ setOpenAddFriend }) => {
                     type: 'success',
                 })
                 setUsername("")
-                setOpenAddFriend(false)
             });
             
        }
@@ -86,9 +68,24 @@ const AddFriend = ({ setOpenAddFriend }) => {
 
     
     return (
-        <div className='flex gap-2 items-center '>
-            <input onKeyDown={handleKeyDown} type="text" className='rounded-md outline-none px-2 py-1 h-fit text-black' value={username} placeholder="Username" onChange={handleChange} />
-            <button onClick={Add} > <BsFillSendPlusFill className='hover:text-primary hover:scale-110 transition-all' size={26} /> </button>
+
+        <div className='flex relative justify-between p-2 rounded-md w-fit bg-[#1e1f22] mt-2 self-center'>
+            <input 
+                onKeyDown={handleKeyDown} 
+                type="text" 
+                className='border-none outline-none bg-transparent placeholder:text-zinc-500 pl-1' 
+                value={username} 
+                placeholder="Username" 
+                onChange={handleChange} 
+            />
+            <div>
+                <button 
+                    disabled={username.length === 0} 
+                    onClick={Add} 
+                    className={cn('px-2 py-1 rounded-md bg-blue-600', username.length === 0 ? 'cursor-not-allowed opacity-40': 'cursor-pointer hover:bg-opacity-60')} 
+                    > Send 
+                </button>
+            </div>
         </div>
     );
 }

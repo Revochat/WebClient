@@ -44,7 +44,7 @@ const Messages = ({ channelMessages }) => {
                 <div ref={ref} />
             </div>
 
-            <div className='w-full mt-4 items-center absolute bottom-4'>
+            <div className='w-full mt-4 items-center absolute bottom-8'>
                 <InputMessage />
             </div>
         </div>
@@ -63,14 +63,14 @@ const Message = ({ message }) => {
                 <div className='flex flex-col'>
                     <div className='flex items-center justify-end gap-3'>
                         <p className='text-white -mt-1 capitalize'> {message.user.username} </p>
-                        <Avatar className="w-10 h-10" />
+                        <Avatar user={message.user} className="w-10 h-10" />
                     </div>
                     <div className='mr-14 bg-primary rounded-md rounded-tr-none w-fit'>
                         <div className='w-fit py-1 px-2 text-sm'>
                             <p> {message.message} </p>
                         </div>
                     </div>
-                    <span className='text-end mr-14 mt-1 italic text-xs text-white'> {message.createdAt.slice(11,19)} </span>
+                    <span className='text-end mr-14 mt-1 italic text-xs text-zinc-400'> {message.createdAt.slice(11,19)} </span>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@ const Message = ({ message }) => {
             <div className='flex w-full justify-start'>
                 <div className='flex flex-col'>
                     <div className='flex items-center gap-3'>
-                        <Avatar className="w-10 h-10" />
+                        <Avatar user={message.user} className="w-10 h-10" />
                         <p className='text-white -mt-1 capitalize'> {message.user.username} </p>
                     </div>
                     <div className='ml-14 bg-[#F2F7FB] rounded-md rounded-tl-none w-fit'>
@@ -86,36 +86,11 @@ const Message = ({ message }) => {
                             <p> {message.message} </p>
                         </div>
                     </div>
-                    <span className='ml-14 mt-1 italic text-xs text-white'> {message.createdAt.slice(11,19)} </span>
+                    <span className='ml-14 mt-1 italic text-xs text-zinc-400'> {message.createdAt.slice(11,19)} </span>
                 </div>
             </div>
         }
         </>
-        // <div className={`w-full flex ${message?.user?.user_id == currentUser?.user_id ? 'justify-end': 'justify-start'}`}  >
-        //     {message.user?.user_id == currentUser?.user_id ? 
-        //         <div className='flex w-3/4 bg-primary py-1 px-2 rounded-md'>
-        //             <img 
-        //                 className='w-12 h-12 rounded-full object-cover' 
-        //                 src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png" alt="" 
-        //             />
-        //             <div className='flex flex-col gap-1 mt-2 ml-2'>
-        //                 <div className='text-lg font-bold flex gap-4 items-end'> {message?.user?.username} <span className='text-sm italic font-light '>{message.created_at} </span> </div>
-        //                 <p className='text-lg'>{message.message} </p>
-        //             </div>
-        //         </div>
-        //         :
-        //         <div className='flex justify-end w-3/4 bg-[#F2F7FB] py-1 px-2 rounded-md'>
-        //             <div className='flex flex-col gap-1 mt-2 mr-2'>
-        //                 <div className='text-lg font-bold flex gap-4 items-end'> <span className='text-sm italic font-light'>{message.created_at} </span> {message?.user?.username}  </div>
-        //                 <p className='text-lg text-end'>{message.message} </p>
-        //             </div>
-        //             <img 
-        //                 className='w-12 h-12 rounded-full object-cover' 
-        //                 src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png" alt="" 
-        //             />
-        //         </div>
-        //     }
-        // </div>
     )
 }
 

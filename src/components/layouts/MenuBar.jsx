@@ -1,19 +1,15 @@
 'use client';
 import React, { useContext, useEffect, useState } from 'react';
-import AddFriend from '../AddFriend';
-import AddChannel from '../AddChannel';
 import { RevochatContext } from '@/context/context';
 import FriendsList from '../FriendsList';
 import FriendsRequest from '../FriendsRequest';
 import ProfilHeader from '../ProfilHeader';
 import DirectMessagesList from '../DirectMessagesList';
-import { getUser } from '@/apis/sockets/users';
-import { getChannel, getChannels } from '@/apis/sockets/channels';
-import { sendMessage } from '@/apis/sockets/messages';
+import { getChannels } from '@/apis/sockets/channels';
 
 const MenuBar = () => {
 
-    const { currentUser, selectedChannel, setSelectedChannel } = useContext(RevochatContext);
+    const { currentUser } = useContext(RevochatContext);
     const [channels, setChannels] = useState([])
 
     useEffect(() => {
@@ -21,17 +17,10 @@ const MenuBar = () => {
         GetUserChannels()
     }, [currentUser])
 
-
-    const handleSelectedChannel = (channel) => {
-        setSelectedChannel(channel)
-        localStorage.setItem("selectedChannel", JSON.stringify(channel))
-    }
-
     const GetUserChannels = async () => {
         try {
             const token = localStorage.getItem("token")
             await getChannels(token, (channels) => {
-                console.log(channels)
                 setChannels(channels)
             })
         } catch (error) {
@@ -47,7 +36,7 @@ const MenuBar = () => {
             </div>
        
 
-        <div className='p-4 bg-primary rounded-xl mt-8'>
+        <div className='p-2 bg-[#033255] rounded-xl mt-8'>
             <FriendsList />
             <FriendsRequest />
         </div>

@@ -13,24 +13,12 @@ const ProfilHeader = () => {
     const [isMuted, setIsMuted] = useState(false)
     const [isDeafened, setIsDeafened] = useState(false)
 
-    const colorStatus = () => {
-        switch (currentUser?.status) {
-            case 'online':
-                return 'bg-green-500'
-            case 'offline':
-                return 'bg-red-500'
-            case 'busy':
-                return 'bg-yellow-500'
-            default:
-                return 'bg-red-500'
-        }
-    }
 
     return (
         <div className='w-full h-14'>
             <div className='w-[92%] p-2 flex justify-between rounded-md hover:shadow-lg transition'>
                 <div className='flex items-center gap-3'>
-                    <Avatar className='w-10 h-10' />
+                    <Avatar user={currentUser} className='w-10 h-10' />
                     <div className='flex flex-col text-left gap-1 text-white'>
                         <h2 className='font-bold first-letter:uppercase'> {currentUser?.username || 'Digital Nomad'} </h2>
                         <span className='text-xs first-letter:uppercase'> {currentUser?.status || 'Offline'} </span>
