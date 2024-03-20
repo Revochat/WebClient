@@ -5,42 +5,31 @@ import InputMessage from './utils/InputMessage';
 import { RevochatContext } from '@/context/context';
 import EventList from '@/context/EventList';
 import Avatar from './shared/Avatar';
+import { receiveMessages } from '@/apis/sockets/sendMessage';
 
-const Messages = () => {
 
-    const { revochatClient, currentUser, selectedChannel, revoLogin } = useContext(RevochatContext);
+const Messages = ({ channelMessages }) => {
+
+    const { revochatClient, selectedChannel, revoLogin } = useContext(RevochatContext);
     const ref = useRef(null);
     const [messages, setMessages] = useState([]);
-    const [load, setLoad] = useState(true);
-    const [client, setClient] = useState(null)
 
     useEffect(() => {
-        revochatClient.on(EventList.User.Connect, () => {
-            setClient(revochatClient)
-        })
-    }, [revoLogin])
-    
-    useEffect(() => {
-        if(!selectedChannel?.channel_id || !revoLogin || !client) return;
-
-            client.channel.get({channel_id: selectedChannel?.channel_id, limit: 25})
-            
-            client.on(EventList.Channel.Get, (channel) => {
-                console.log('channel Messages: ', channel.messages)
-                setMessages(channel.messages)
-                setLoad(false)
-        })
-
-    }, [selectedChannel?.channel_id, currentUser, client])
+        if(!channelMessages) return;
+        setMessages(channelMessages);
+    }, [channelMessages]);
 
     useEffect(() => {
-        if(!client) return;
+        // Call receiveMessages function when the component mounts
+        const token = localStorage.getItem("token");
+        if (revochatClient && revoLogin && selectedChannel?.channel_id) {
+            receiveMessages(token, (message) => {
+                // Update the messages state with the new message
+                setMessages(prevMessages => [...prevMessages, message.message]);
+            });
+        }
+    }, [revochatClient, revoLogin, selectedChannel]);
 
-        client.on(EventList.Message.Send, (message) => {
-            setMessages(prevMessages => [...prevMessages, message.message])
-            
-        })
-    }, [client]); 
 
     useEffect(() => {
         // Scroll to the last message when messages change

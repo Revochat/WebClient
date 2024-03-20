@@ -2,28 +2,43 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Messages from './Messages';
 import { RevochatContext } from '@/context/context';
-import EventList from '@/context/EventList';
 import ChannelHeader from '@/components/shared/ChannelHeader';
+import { getChannel } from '@/apis/sockets/getChannel';
+import { toast } from './ui/use-toast';
 // import { VideoPlayer } from './VideoPlayer';
 
 const Channel = () => {
 
-    const { revochatClient, selectedChannel, revoLogin } = useContext(RevochatContext);
-    const [client, setClient] = useState(null)
+    const { selectedChannel } = useContext(RevochatContext);
+    const [channelMessages, setChannelMessages] = useState([])
 
     useEffect(() => {
-        revochatClient.on(EventList.User.Connect, () => {
-            setClient(revochatClient)
-        })
-    }, [revoLogin])
+        if(!selectedChannel) return;
+        getMessages()
+    }, [selectedChannel])
 
 
+    const getMessages = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const messages = await getChannel(token, selectedChannel.channel_id);
+            setChannelMessages(messages)
+        } catch (error) {
+            toast({
+                title: 'Error',
+                message: error.message,
+                type: 'error'
+            })
+        }
+
+    }
+   
     return (
         <div className='w-full h-full bg-[#1E1E1E]'>
             <div className='px-10 flex flex-col w-full h-full'>
                 <ChannelHeader />
                 <div className='h-full overflow-hidden'>
-                    <Messages />
+                    <Messages channelMessages={channelMessages}  />
                     {/* <VideoPlayer /> */}
                 </div>
             </div>

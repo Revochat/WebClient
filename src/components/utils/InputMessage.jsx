@@ -3,6 +3,7 @@ import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
 import { PiPaperPlaneRightFill } from "react-icons/pi";
 import Image from 'next/image';
+import { sendMessage } from '@/apis/sockets/sendMessage';
 
 const InputMessage = () => {
     
@@ -16,11 +17,16 @@ const InputMessage = () => {
         })
     }, [revoLogin])
 
-    const sendMessage = async () => {
+    
+
+    const Send = async () => {
         if(!message) return;
         if(!selectedChannel?.channel_id) return alert('Pas de channel selectionné')
+
         try{
-            client.message.send({channel_id: selectedChannel?.channel_id, message: message})
+            const token = localStorage.getItem("token");
+            const channel_id = selectedChannel.channel_id;
+            await sendMessage(token, channel_id, message)
             setMessage('')
         }
         catch(err){
@@ -34,7 +40,7 @@ const InputMessage = () => {
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            sendMessage()
+            Send()
         }
     }
 
@@ -67,7 +73,7 @@ const InputMessage = () => {
             <PiPaperPlaneRightFill
                 size={34}
                 className='bg-primary rounded-full p-2 text-white hover:scale-105 transition cursor-pointer'
-                onClick={sendMessage}
+                onClick={Send}
              />
         </div>
     );

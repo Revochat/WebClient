@@ -7,6 +7,9 @@ import FriendsList from '../FriendsList';
 import FriendsRequest from '../FriendsRequest';
 import ProfilHeader from '../ProfilHeader';
 import DirectMessagesList from '../DirectMessagesList';
+import { getUser } from '@/apis/sockets/getUser';
+import { getChannel } from '@/apis/sockets/getChannel';
+import { sendMessage } from '@/apis/sockets/sendMessage';
 
 const MenuBar = () => {
 
@@ -33,6 +36,18 @@ const MenuBar = () => {
         <div className='p-4 bg-primary rounded-xl mt-8'>
             <FriendsList />
             <FriendsRequest />
+        </div>
+
+        <div className='flex flex-col gap-2'>
+            <button className='bg-red-500 text-white rounded-md py-1 px-2 mt-8' onClick={() => getUser()}>
+                getUser()
+            </button>
+            <button className='bg-green-500 text-white rounded-md py-1 px-2 mt-8' onClick={() => getChannel()}>
+                getChannel()
+            </button>
+            <button className='bg-green-500 text-white rounded-md py-1 px-2 mt-8' onClick={() => sendMessage("Thomas send a message")}>
+                sendMessage()
+            </button>
         </div>
 
         </div>
