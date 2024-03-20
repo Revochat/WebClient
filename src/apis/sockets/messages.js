@@ -39,9 +39,9 @@ export const receiveMessages = (token, callback) => {
     console.log("Socket - receiveMessages()");
     try {
         const TOKEN = token;
-        if (!TOKEN) throw new Error("USER1_TOKEN is not defined in .env file");
+        if (!TOKEN) throw new Error("TOKEN is not defined in .env file");
 
-        const URL = "ws://localhost:3001";
+        const URL = process.env.REVO_CLIENT_URL;
         if (!URL) throw new Error("URL is not defined in .env file");
 
         const client = new Revochat.Client({

@@ -2,13 +2,13 @@
 import EventList from "@/context/EventList";
 import { Revochat } from "@revochat/revochat-client";
 
-export const getUser = async () => {
+export const getUser = async (token) => {
     console.log("Socket - getUser()")
     try {
-        const TOKEN = "E7533F6FC442505BA33CF9475D96A0041706692368471"
-        if(!TOKEN) throw new Error("USER1_TOKEN is not defined in .env file")
+        const TOKEN = token;
+        if(!TOKEN) throw new Error("TOKEN is not defined in .env file")
 
-        const URL="ws://localhost:3001"
+        const URL = process.env.REVO_CLIENT_URL;
         if(!URL) throw new Error("URL is not defined in .env file")
 
         const client = new Revochat.Client({
