@@ -56,7 +56,6 @@ export const receiveMessages = (token, callback) => {
                 console.error(user.error);
                 return;
             }
-            console.log("Connected as " + user.username + " (" + user.user_id + ")");
             console.log("You have " + user.friends.length + " friends");
         });
 

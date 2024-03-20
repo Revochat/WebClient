@@ -66,6 +66,8 @@ const AddFriend = ({ setOpenAddFriend }) => {
                     title: "You have send a friend request to " + username,
                     type: 'success',
                 })
+                setUsername("")
+                setOpenAddFriend(false)
             });
             
        }

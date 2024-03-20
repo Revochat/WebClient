@@ -22,7 +22,8 @@ const DirectMessagesList = ({ channels }) => {
                     <span className='' >Add a friend</span>
                 </div>
                <div className='px-4'>{openAddFriend && <AddFriend setOpenAddFriend={setOpenAddFriend} />}</div> 
-                <div className='mt-2'>
+                <div className='mt-2 py-2'>
+                    {show && channels?.length === 0 && <div className='text-left ml-8 text-zinc-400'>No direct messages yet.</div>}
                     {show && channels?.map((channel) => (
                        <DirectMessageItem key={channel.channel_id} channel={channel} setSelectedChannel={setSelectedChannel} currentUser={currentUser} />
                     ))}
@@ -49,8 +50,8 @@ const DirectMessageItem = ({ channel, setSelectedChannel, currentUser }) => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <div>{member.username}</div>
-                        <div className='text-xs italic text-gray-200'> {channel.lastMessage.message.length <= 26? channel.lastMessage.message : channel.lastMessage.message.slice(0, 26) + '...'  } </div>
-                        {/* {lastMessage.length <= 26? lastMessage : lastMessage.slice(0, 26) + '...'} */}
+                        {channel.lastMessage && <div className='text-xs italic text-gray-200'> {channel.lastMessage.message.length <= 26? channel.lastMessage.message : channel.lastMessage.message.slice(0, 26) + '...'  } </div>}
+                        
                     </div>
                 </div>
                 <div className='rounded-full bg-orange-500 items-center flex justify-center w-[22px] h-[22px]'>

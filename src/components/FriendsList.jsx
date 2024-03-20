@@ -1,44 +1,43 @@
+import { removeFriend } from '@/apis/sockets/friends';
 import EventList from '@/context/EventList';
 import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
+import { toast } from './ui/use-toast';
+import { cn } from '@/lib/utils';
 
 const FriendsList = () => {
 
-    const { revochatClient, currentUser, revoLogin } = useContext(RevochatContext);
+    const { currentUser } = useContext(RevochatContext);
     const [client, setClient] = useState(null)
-    const [removeFriend, setRemoveFriend] = useState(null)
 
-    useEffect(() => {
-        revochatClient.on(EventList.User.Connect, () => {
-            setClient(revochatClient)
-        })
-    }, [revoLogin])
-
-    useEffect(() => {
-        if(!client) return;
-
-        client.on(EventList.User.RemoveFriend, (result) => {
-            console.log('remove.friend: ', result)
-            if (result.error) {
-                console.error("Error:", result.error) 
-                currentUser.friends.push(removeFriend)
-                return;
-            };
-            alert(result.success)
-        })
-      
-    }, [client]); 
-
-    const handleRemoveFriend = (friend) => {
-        setRemoveFriend(friend)
+    const handleRemoveFriend = async (friend) => {
         try{
-            console.log("try to remove friend with ID:", friend);
-            client.user.removeFriend({ username: friend.username })
-            currentUser.friends = currentUser.friends.filter(f => f.username !== friend.username)
+            const token = localStorage.getItem("token")
+            console.log("try to remove friend: ", friend);
+            await removeFriend(token, friend.username, (result) => {
+
+                toast({
+                    className: cn(
+                        'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
+                    ),
+                    variant: "success",
+                    title: "Friend removed successfully!",
+                    description: `Friend ${friend.username} has been removed from your friends list.`,
+                  })
+
+                  window.location.reload()
+            })
         }
-        catch(err){
-            console.log('error: ', err)
-            alert(err)
+        catch(error){
+            console.log('error: ', error)
+            toast({
+                className: cn(
+                    'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
+                ),
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: JSON.stringify(error),
+              })
         }
     };
 

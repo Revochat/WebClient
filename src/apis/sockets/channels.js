@@ -25,7 +25,6 @@ export const getChannels = (token, callback) => {
             })
 
             client.on(EventList.User.GetChannels, (channels) => {
-                console.log(channels)
                 console.log(channels.length + " channels found")
                 if (typeof callback === 'function') {
                     callback(channels);

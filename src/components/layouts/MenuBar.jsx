@@ -53,15 +53,10 @@ const MenuBar = () => {
         </div>
 
         <div className='flex flex-col gap-2'>
-            <button className='bg-red-500 text-white rounded-md py-1 px-2 mt-8' onClick={() => getUser()}>
+            {/* <button className='bg-red-500 text-white rounded-md py-1 px-2 mt-8' onClick={() => getUser()}>
                 getUser()
-            </button>
-            <button className='bg-green-500 text-white rounded-md py-1 px-2 mt-8' onClick={() => getChannel()}>
-                getChannel()
-            </button>
-            <button className='bg-green-500 text-white rounded-md py-1 px-2 mt-8' onClick={() => sendMessage("Thomas send a message")}>
-                sendMessage()
-            </button>
+            </button> */}
+           
         </div>
 
         </div>
