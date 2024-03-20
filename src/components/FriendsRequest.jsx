@@ -16,23 +16,17 @@ const FriendsRequest = () => {
 
     useEffect(() => {
         if(!client) return;
-    
+        console.log("rentre")
         client.user.getFriendsReceived()
-        .then((result) => {console.log(result)})
-        .catch((error) => {
-            console.log(error)
-        })
-
     }, [client])
 
     useEffect(() => {
         //get Friends request
         if(!client) return;
-        console.log('get friends request')
-        
         //get friends request received
+        client.user.getFriendsReceived()
         client.on(EventList.User.GetFriendsReceived , (result) => {
-            console.log('get friends: ', result)
+            console.log('getFriendsReceived', result)
             if (result.error) {
                 console.error("Error:", result.error)
                 alert(result.error)
@@ -43,7 +37,6 @@ const FriendsRequest = () => {
 
         //get friends request send
         client.on(EventList.User.AddFriend, (result) => {
-            console.log('add.friend: ', result)
             if (result.error) {
                 console.error("Error:", result.error)
                 alert(result.error)
@@ -54,7 +47,6 @@ const FriendsRequest = () => {
     }, [client]);
 
     const handleAddFriend = (username) => {
-        console.log('add friend: ', username)
         client?.user?.addFriend({ username: username })
         .then((result) => {
             console.log(result)

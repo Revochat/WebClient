@@ -6,7 +6,6 @@ import EventList from "./EventList";
 
 export const RevochatContext = createContext();
 
-
     export const RevochatProvider = ({children}) => {
         const revochatClient = new Revochat.Client({
             url: process.env.REVO_CLIENT_URL,
@@ -17,47 +16,47 @@ export const RevochatContext = createContext();
         const [revoLogin, setRevoLogin] = useState(false);
         const [selectedChannel, setSelectedChannel] = useState({})
         const [openCreateServerModal, setOpenCreateServerModal] = useState(false);
-        console.log('context opencreateserver', openCreateServerModal)
+        const [loading, setLoading] = useState(false);
 
         useEffect(() => {
-            if(!currentUser.user_id) initRevochat();
-            const jwt = localStorage.getItem("token")
-            if(window.location.pathname != "/" && !jwt) window.location.href = "/"
-        }, [currentUser])
-
-
-        const initRevochat = () => {
             try {
-                logUser();
+                if (!currentUser.user_id && !loading) {
+                    setLoading(true);
+                    logUser();
+                }
+                const jwt = localStorage.getItem("token")
+                if(window.location.pathname != "/" && !jwt) window.location.href = "/"
             } catch (error) {
                 console.log(error)
             }
-        }
+        }, [currentUser])
 
         const logUser = () => {
             try{
-            const jwt = localStorage.getItem("token")
+                const jwt = localStorage.getItem("token")
                 console.log('jwt', jwt)
+                console.log('revochatClient')
                 revochatClient.login(jwt)
-            
+                const autoReload = setTimeout(() => {
+                    window.location.reload(true);
+                }, 2000)
                 revochatClient.on(EventList.User.Connect, (user) => {
+                    if(autoReload) clearTimeout(autoReload)
+                    console.log('user', user)
                     if(user.error) return console.log(user.error)
-                    console.log(user)
                     setCurrentUser(user)
                     localStorage.setItem('user', JSON.stringify(user))
                     if(selectedChannel && user.channels.length === 0) setSelectedChannel({})
                     !selectedChannel && setSelectedChannel(user.channels[0])
                     setRevoLogin(true)
-                    console.log("Connected as " + user.username +  " (" + user.user_id + ")")  
-                    console.log("You have " + user.friends.length + " friends")
+                    setLoading(false); // set loading to false when user is connected
                 })
             }
             catch(error){
                 console.log(error)
             }
         }
-         
-    
+
     return (
         <RevochatContext.Provider 
             value={{

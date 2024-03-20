@@ -15,7 +15,6 @@ const FriendsList = () => {
     }, [revoLogin])
 
     useEffect(() => {
-        console.log('removeFriend()')
         if(!client) return;
 
         client.on(EventList.User.RemoveFriend, (result) => {

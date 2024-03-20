@@ -10,9 +10,13 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+<<<<<<< HEAD
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
+=======
+    "@radix-ui/react-toast": "^1.1.5",
+>>>>>>> e1ff4a5bdba77aea3011e23546a89b8f93145d0a
     "@revochat/revochat-client": "^1.0.42",
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",

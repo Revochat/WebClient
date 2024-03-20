@@ -19,11 +19,13 @@ const Channel = () => {
 
 
     return (
-        <div className='w-full h-full flex flex-col'>
-            <ChannelHeader />
-            <div className='h-full bg-[#1E1E1E] overflow-hidden'>
-                <Messages />
-                {/* <VideoPlayer /> */}
+        <div className='w-full h-full bg-[#1E1E1E]'>
+            <div className='px-10 flex flex-col w-full h-full'>
+                <ChannelHeader />
+                <div className='h-full overflow-hidden'>
+                    <Messages />
+                    {/* <VideoPlayer /> */}
+                </div>
             </div>
         </div>
     );
