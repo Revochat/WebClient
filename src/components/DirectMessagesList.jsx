@@ -35,13 +35,13 @@ const DirectMessagesList = ({ channels }) => {
 
 const DirectMessageItem = ({ channel, setSelectedChannel, currentUser }) => {
 
-    const lastMessage = 'this is the last message: bzae'
+    const lastMessage = 'this is the last message .'
     const randomNumber = Math.floor(Math.random() * 10)
     
     return (
         <div>
         {channel?.members?.filter(member => member.user_id != currentUser.user_id).map((member) => (
-            <div key={member.user_id} className='flex justify-between items-center cursor-pointer hover:bg-[#1E78D0] rounded-md px-6 py-2' onClick={() => setSelectedChannel(message)}>
+            <div key={member.user_id} className='flex justify-between items-center cursor-pointer hover:bg-[#1E78D0] rounded-md px-6 py-2' onClick={() => setSelectedChannel(channel)}>
                 <div className='flex items-center gap-3'>
                     <div className='relative w-10 h-10'>
                         <img src='https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector.png' alt={member.username} className='w-full h-full rounded-full object-cover' />
