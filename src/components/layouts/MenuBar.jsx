@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AddFriend from '../AddFriend';
 import AddChannel from '../AddChannel';
 import { RevochatContext } from '@/context/context';
@@ -7,29 +7,43 @@ import FriendsList from '../FriendsList';
 import FriendsRequest from '../FriendsRequest';
 import ProfilHeader from '../ProfilHeader';
 import DirectMessagesList from '../DirectMessagesList';
-import { getUser } from '@/apis/sockets/getUser';
-import { getChannel } from '@/apis/sockets/getChannel';
-import { sendMessage } from '@/apis/sockets/sendMessage';
+import { getUser } from '@/apis/sockets/users';
+import { getChannel, getChannels } from '@/apis/sockets/channels';
+import { sendMessage } from '@/apis/sockets/messages';
 
 const MenuBar = () => {
 
     const { currentUser, selectedChannel, setSelectedChannel } = useContext(RevochatContext);
+    const [channels, setChannels] = useState([])
 
     useEffect(() => {
-        if(!JSON.parse(localStorage.getItem("selectedChannel"))) return;
-        else setSelectedChannel(JSON.parse(localStorage.getItem("selectedChannel")))
-    }, [])
+        if(!currentUser) return;
+        GetUserChannels()
+    }, [currentUser])
+
 
     const handleSelectedChannel = (channel) => {
         setSelectedChannel(channel)
         localStorage.setItem("selectedChannel", JSON.stringify(channel))
     }
 
+    const GetUserChannels = async () => {
+        try {
+            const token = localStorage.getItem("token")
+            await getChannels(token, (channels) => {
+                console.log(channels)
+                setChannels(channels)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className='h-full w-[360px] bg-[#282525] p-4'>
             <ProfilHeader />
             <div className='mt-6'>
-               <DirectMessagesList messages={currentUser.channels} />
+               <DirectMessagesList channels={channels} />
             </div>
        
 

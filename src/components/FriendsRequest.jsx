@@ -14,37 +14,37 @@ const FriendsRequest = () => {
         })
     }, [revoLogin])
 
-    useEffect(() => {
-        if(!client) return;
-        console.log("rentre")
-        client.user.getFriendsReceived()
-    }, [client])
+    // useEffect(() => {
+    //     if(!client) return;
+    //     console.log("rentre")
+    //     client.user.getFriendsReceived()
+    // }, [client])
 
-    useEffect(() => {
-        //get Friends request
-        if(!client) return;
-        //get friends request received
-        client.user.getFriendsReceived()
-        client.on(EventList.User.GetFriendsReceived , (result) => {
-            console.log('getFriendsReceived', result)
-            if (result.error) {
-                console.error("Error:", result.error)
-                alert(result.error)
-                return;
-            };
-            setFriendsRequest(result.friends_requests_received)
-        })
+    // useEffect(() => {
+    //     //get Friends request
+    //     if(!client) return;
+    //     //get friends request received
+    //     client.user.getFriendsReceived()
+    //     client.on(EventList.User.GetFriendsReceived , (result) => {
+    //         console.log('getFriendsReceived', result)
+    //         if (result.error) {
+    //             console.error("Error:", result.error)
+    //             alert(result.error)
+    //             return;
+    //         };
+    //         setFriendsRequest(result.friends_requests_received)
+    //     })
 
-        //get friends request send
-        client.on(EventList.User.AddFriend, (result) => {
-            if (result.error) {
-                console.error("Error:", result.error)
-                alert(result.error)
-                return;
-            };
-        })
+    //     //get friends request send
+    //     client.on(EventList.User.AddFriend, (result) => {
+    //         if (result.error) {
+    //             console.error("Error:", result.error)
+    //             alert(result.error)
+    //             return;
+    //         };
+    //     })
 
-    }, [client]);
+    // }, [client]);
 
     const handleAddFriend = (username) => {
         client?.user?.addFriend({ username: username })

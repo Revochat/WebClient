@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Messages from './Messages';
 import { RevochatContext } from '@/context/context';
 import ChannelHeader from '@/components/shared/ChannelHeader';
-import { getChannel } from '@/apis/sockets/getChannel';
+import { getChannel } from '@/apis/sockets/channels';
 import { toast } from './ui/use-toast';
 import { cn } from '@/lib/utils';
 // import { VideoPlayer } from './VideoPlayer';

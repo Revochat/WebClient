@@ -1,5 +1,5 @@
 'use client';
-import { addFriend } from '@/apis/sockets/addFriend';
+import { addFriend } from '@/apis/sockets/friends';
 import EventList from '@/context/EventList';
 import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
@@ -10,12 +10,8 @@ import { cn } from '@/lib/utils';
 
 const AddFriend = ({ setOpenAddFriend }) => {
 
-    const { revochatClient, revoLogin } = useContext(RevochatContext);
-   
     const [username, setUsername] = useState("");
     const [client, setClient] = useState(null)
-
-       
 
     useEffect(() => {
         console.log('addFriend()')
@@ -45,7 +41,6 @@ const AddFriend = ({ setOpenAddFriend }) => {
     }
 
     const Add = async () => {
-        console.log('add friend ...')
        try{
             const token = localStorage.getItem('token')
             await addFriend(token, username, (user) => {
@@ -87,6 +82,7 @@ const AddFriend = ({ setOpenAddFriend }) => {
        }
     }
 
+    
     return (
         <div className='flex gap-2 items-center '>
             <input onKeyDown={handleKeyDown} type="text" className='rounded-md outline-none px-2 py-1 h-fit text-black' value={username} placeholder="Username" onChange={handleChange} />

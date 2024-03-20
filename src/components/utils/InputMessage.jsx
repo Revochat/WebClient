@@ -3,7 +3,7 @@ import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
 import { PiPaperPlaneRightFill } from "react-icons/pi";
 import Image from 'next/image';
-import { sendMessage } from '@/apis/sockets/sendMessage';
+import { sendMessage } from '@/apis/sockets/messages';
 
 const InputMessage = () => {
     

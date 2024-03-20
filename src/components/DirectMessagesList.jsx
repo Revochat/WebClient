@@ -4,7 +4,7 @@ import { FaChevronDown, FaChevronRight  } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import AddFriend from './AddFriend';
 
-const DirectMessagesList = ({ messages }) => {
+const DirectMessagesList = ({ channels }) => {
     
     const { currentUser, selectedChannel, setSelectedChannel } = useContext(RevochatContext);
     const [show, setShow] = useState(true)
@@ -23,8 +23,8 @@ const DirectMessagesList = ({ messages }) => {
                 </div>
                <div className='px-4'>{openAddFriend && <AddFriend setOpenAddFriend={setOpenAddFriend} />}</div> 
                 <div className='mt-2'>
-                    {show && messages?.map((message) => (
-                       <DirectMessageItem key={message.channel_id} message={message} setSelectedChannel={setSelectedChannel} currentUser={currentUser} />
+                    {show && channels?.map((channel) => (
+                       <DirectMessageItem key={channel.channel_id} channel={channel} setSelectedChannel={setSelectedChannel} currentUser={currentUser} />
                     ))}
                 </div>
                 </div>
@@ -33,14 +33,14 @@ const DirectMessagesList = ({ messages }) => {
 }
 
 
-const DirectMessageItem = ({ message, setSelectedChannel, currentUser }) => {
+const DirectMessageItem = ({ channel, setSelectedChannel, currentUser }) => {
 
     const lastMessage = 'this is the last message: bzae'
     const randomNumber = Math.floor(Math.random() * 10)
     
     return (
         <div>
-        {message?.members?.filter(member => member.user_id != currentUser.user_id).map((member) => (
+        {channel?.members?.filter(member => member.user_id != currentUser.user_id).map((member) => (
             <div key={member.user_id} className='flex justify-between items-center cursor-pointer hover:bg-[#1E78D0] rounded-md px-6 py-2' onClick={() => setSelectedChannel(message)}>
                 <div className='flex items-center gap-3'>
                     <div className='relative w-10 h-10'>
@@ -49,7 +49,8 @@ const DirectMessageItem = ({ message, setSelectedChannel, currentUser }) => {
                     </div>
                     <div className='flex flex-col gap-1'>
                         <div>{member.username}</div>
-                        <div className='text-xs italic text-gray-200'> {lastMessage.length <= 26? lastMessage : lastMessage.slice(0, 26) + '...'} </div>
+                        <div className='text-xs italic text-gray-200'> {channel.lastMessage.message.length <= 26? channel.lastMessage.message : channel.lastMessage.message.slice(0, 26) + '...'  } </div>
+                        {/* {lastMessage.length <= 26? lastMessage : lastMessage.slice(0, 26) + '...'} */}
                     </div>
                 </div>
                 <div className='rounded-full bg-orange-500 items-center flex justify-center w-[22px] h-[22px]'>

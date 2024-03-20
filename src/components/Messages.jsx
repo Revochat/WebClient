@@ -5,7 +5,7 @@ import InputMessage from './utils/InputMessage';
 import { RevochatContext } from '@/context/context';
 import EventList from '@/context/EventList';
 import Avatar from './shared/Avatar';
-import { receiveMessages } from '@/apis/sockets/sendMessage';
+import { receiveMessages } from '@/apis/sockets/messages';
 
 
 const Messages = ({ channelMessages }) => {

@@ -1,7 +1,44 @@
 
 import EventList from "@/context/EventList";
 import { Revochat } from "@revochat/revochat-client";
-import { resolve } from "styled-jsx/css";
+
+export const getChannels = (token, callback) => {
+    console.log("Socket - getChannel()");
+    return new Promise((resolve, reject) => {
+        try {
+            const TOKEN = token;
+            if (!TOKEN) throw new Error("TOKEN is not defined in .env file");
+
+            const URL = "ws://localhost:3001";
+            if (!URL) throw new Error("URL is not defined in .env file");
+
+            const client = new Revochat.Client({
+                url: URL,
+                debug: true,
+            });
+
+            client.login(TOKEN) // login with token
+
+            client.on(EventList.User.Connect, (user) => {
+                if(user.error) return console.log(user.error)
+                client.user.getChannels()
+            })
+
+            client.on(EventList.User.GetChannels, (channels) => {
+                console.log(channels)
+                console.log(channels.length + " channels found")
+                if (typeof callback === 'function') {
+                    callback(channels);
+                }
+            })
+
+        } catch (error) {
+            console.log(error);
+            reject(error); // Reject in case of error
+        }
+    });
+}
+
 
 export const getChannel = (token, channel_id) => {
     console.log("Socket - getChannel()");

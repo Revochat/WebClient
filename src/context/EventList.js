@@ -27,6 +27,7 @@ EventList.User = {
     GetFriends: "user.friends.get",
     GetFriendsReceived: "user.friends.received.get",
     SetAvatar: "user.avatar.set",
+    GetChannels: "user.channels.get",
 };
 
 EventList.Server = {
