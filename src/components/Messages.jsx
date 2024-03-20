@@ -28,15 +28,12 @@ const Messages = ({ channelMessages }) => {
             });
     }, []);
 
-
     useEffect(() => {
         // Scroll to the last message when messages change
         if (ref?.current) {
             ref.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
         }
     }, [messages]);
-
-
 
     return (
         <div className='w-full h-full relative'>

@@ -66,8 +66,6 @@ export const receiveMessages = (token, callback) => {
                 return;
             }
             console.log("Received message:", message);
-            // If you want to do something with the received message,
-            // you can pass it to the callback function
             if (typeof callback === 'function') {
                 callback(message);
             }

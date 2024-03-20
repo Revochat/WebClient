@@ -5,6 +5,7 @@ import { RevochatContext } from '@/context/context';
 import ChannelHeader from '@/components/shared/ChannelHeader';
 import { getChannel } from '@/apis/sockets/getChannel';
 import { toast } from './ui/use-toast';
+import { cn } from '@/lib/utils';
 // import { VideoPlayer } from './VideoPlayer';
 
 const Channel = () => {
@@ -13,7 +14,7 @@ const Channel = () => {
     const [channelMessages, setChannelMessages] = useState([])
 
     useEffect(() => {
-        if(!selectedChannel) return;
+        if(!selectedChannel.channel_id) return;
         getMessages()
     }, [selectedChannel])
 
@@ -24,11 +25,15 @@ const Channel = () => {
             const messages = await getChannel(token, selectedChannel.channel_id);
             setChannelMessages(messages)
         } catch (error) {
+            console.log(error)
             toast({
-                title: 'Error',
-                message: error.message,
-                type: 'error'
-            })
+                className: cn(
+                    'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
+                ),
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: JSON.stringify(error),
+              })
         }
 
     }

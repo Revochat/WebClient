@@ -1,22 +1,21 @@
 'use client';
+import { addFriend } from '@/apis/sockets/addFriend';
 import EventList from '@/context/EventList';
 import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
 import { BsFillSendPlusFill } from "react-icons/bs";
+import { toast } from './ui/use-toast';
+import { cn } from '@/lib/utils';
 
 
 const AddFriend = ({ setOpenAddFriend }) => {
 
     const { revochatClient, revoLogin } = useContext(RevochatContext);
    
-    const [friendID, setFriendID] = useState("");
+    const [username, setUsername] = useState("");
     const [client, setClient] = useState(null)
 
-        useEffect(() => {
-            revochatClient.on(EventList.User.Connect, () => {
-                setClient(revochatClient)
-            })
-        }, [revoLogin])
+       
 
     useEffect(() => {
         console.log('addFriend()')
@@ -36,30 +35,62 @@ const AddFriend = ({ setOpenAddFriend }) => {
 
 
     const handleChange = (e) => {
-        setFriendID(e.target.value);
+        setUsername(e.target.value);
     }
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            addFriend()
+            Add()
         }
     }
 
-    const addFriend = () => {
+    const Add = async () => {
         console.log('add friend ...')
        try{
-            client.user.addFriend({ username: friendID })
+            const token = localStorage.getItem('token')
+            await addFriend(token, username, (user) => {
+                console.log('user: ', user)
+                if(user.error) {
+                    console.log('error: ', user.error)
+                    toast({
+                        className: cn(
+                            'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
+                        ),
+                        variant: "destructive",
+                        title: "Uh oh! Something went wrong.",
+                        description: user.error,
+                    })
+                    return;
+                }
+                toast({
+                    className: cn(
+                        'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
+                    ),
+                    duration: 4000,
+                    variant: "success",
+                    title: "You have send a friend request to " + username,
+                    type: 'success',
+                })
+            });
+            
        }
        catch(err){
            console.log('error: ', err)
+           toast({
+            className: cn(
+                'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
+            ),
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: err.message,
+          })
        }
-        console.log('friend request send')
     }
 
     return (
         <div className='flex gap-2 items-center '>
-            <input onKeyDown={handleKeyDown} type="text" className='rounded-md outline-none px-2 py-1 h-fit text-black' value={friendID} placeholder="Friend ID" onChange={handleChange} />
-            <button onClick={addFriend} > <BsFillSendPlusFill className='hover:text-primary hover:scale-110 transition-all' size={26} /> </button>
+            <input onKeyDown={handleKeyDown} type="text" className='rounded-md outline-none px-2 py-1 h-fit text-black' value={username} placeholder="Username" onChange={handleChange} />
+            <button onClick={Add} > <BsFillSendPlusFill className='hover:text-primary hover:scale-110 transition-all' size={26} /> </button>
         </div>
     );
 }
