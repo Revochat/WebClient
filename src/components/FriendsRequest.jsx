@@ -45,7 +45,7 @@ const FriendsRequest = () => {
                 <div className='rounded-full h-5 min-w-[20px] w-fit items-center flex justify-center bg-red-500 text-sm px-1 text-center'> {numberOfPending} </div> 
            </div>
            {menu && (
-                <div className='mt-2 py-2 px-4 max-h-20 overflow-auto'>
+                <div className='mt-2 py-2 px-4 max-h-40 overflow-auto scrollbar-hidden'>
                     {friendsRequest.length === 0 && <div className='text-zinc-400'>No friends request received</div>}
                     {friendsRequest.slice(0, 5).map((friend) => (
                         <Item friend={friend} key={friend.user_id} />

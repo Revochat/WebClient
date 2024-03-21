@@ -2,7 +2,7 @@
 import EventList from "@/context/EventList";
 import { Revochat } from "@revochat/revochat-client";
 
-export const getUser = async (token) => {
+export const getUser = async (token, callback) => {
     console.log("Socket - getUser()")
     try {
         const TOKEN = token;
@@ -20,13 +20,16 @@ export const getUser = async (token) => {
 
         client.on(EventList.User.Connect, (user) => {
             if(user.error) return console.log(user.error)
-            console.log(user)
-            console.log("Connected as " + user.username +  " (" + user.user_id + ")")  
-            console.log("You have " + user.friends.length + " friends")
+            if (typeof callback === 'function') {
+                callback(user);
+            }
         })
 
         client.on(EventList.User.Update, (user) => {
             console.log("User updated: " + user)
+            if (typeof callback === 'function') {
+                callback(message);
+            }
         })
         
     } catch (error) {

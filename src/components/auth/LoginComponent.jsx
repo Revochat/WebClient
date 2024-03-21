@@ -26,6 +26,12 @@ const LoginComponent = () => {
             [e.target.name]: e.target.value
         })
     }
+    const handleKeyDown = (e) => {
+        console.log(e.key)
+        if(e.key === 'Enter') {
+            handleSubmit()
+        }
+    }
 
     const handleSubmit = () => {
         setLoader(true)
@@ -81,6 +87,7 @@ const LoginComponent = () => {
                         type={showPassword ? 'text' : 'password'} 
                         className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent text-zinc-200'
                         onChange={handleChange}
+                        onKeyDown={handleKeyDown}
                     />
                     <span className='absolute right-8 top-8 cursor-pointer text-white' onClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <FaEyeSlash size={22}/> : <FaEye size={22} />}

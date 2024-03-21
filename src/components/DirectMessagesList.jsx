@@ -29,15 +29,19 @@ const DirectMessagesList = ({ channels }) => {
 
 const DirectMessageItem = ({ channel, setSelectedChannel, selectedChannel, currentUser }) => {
 
-    const lastMessage = 'this is the last message .'
     const randomNumber = Math.floor(Math.random() * 10)
+
+    const handleSelectChannel = () => {
+        setSelectedChannel(channel)
+        localStorage.setItem('selectedChannel', JSON.stringify(channel))
+    }
     
     return (
         <div>
         {channel?.members?.filter(member => member.user_id != currentUser.user_id).map((member) => (
             <div key={member.user_id} className={cn('flex justify-between items-center cursor-pointer hover:bg-[#89b3dd] hover:bg-opacity-50 rounded-md px-6 py-2', 
             selectedChannel?.channel_id === channel.channel_id && 'bg-[#1E78D0]')} 
-            onClick={() => setSelectedChannel(channel)}>
+            onClick={handleSelectChannel}>
                 <div className='flex items-center gap-3'>
                    <Avatar user={member} className='w-8 h-8'/> 
                     <div className='flex flex-col gap-1'>

@@ -2,6 +2,7 @@
 import { createContext, useState, useEffect } from "react";
 import { Revochat } from '@revochat/revochat-client';
 import EventList from "./EventList";
+import { getUser } from "@/apis/sockets/users";
 
 
 export const RevochatContext = createContext();
@@ -30,26 +31,38 @@ export const RevochatContext = createContext();
             }
         }, [currentUser])
 
-        const logUser = () => {
+        const logUser = async () => {
             try{
                 const jwt = localStorage.getItem("token")
-                console.log('jwt', jwt)
-                console.log('revochatClient')
-                revochatClient.login(jwt)
-                const autoReload = setTimeout(() => {
-                    window.location.reload(true);
-                }, 2000)
-                revochatClient.on(EventList.User.Connect, (user) => {
-                    if(autoReload) clearTimeout(autoReload)
+                const selectedChannelCache = localStorage.getItem("selectedChannel") ? JSON.parse(localStorage.getItem("selectedChannel")) : {}
+                // revochatClient.login(jwt)
+                await getUser(jwt, (user) => {
                     console.log('user', user)
                     if(user.error) return console.log(user.error)
                     setCurrentUser(user)
                     localStorage.setItem('user', JSON.stringify(user))
-                    if(selectedChannel && user.channels.length === 0) setSelectedChannel({})
-                    !selectedChannel && setSelectedChannel(user.channels[0])
+                    if(selectedChannelCache && user.channels.length > 0){
+                        const channel = user.channels.find(channel => channel.channel_id == selectedChannelCache.channel_id)
+                        setSelectedChannel(channel || user.channels[0])
+                    }
                     setRevoLogin(true)
                     setLoading(false); // set loading to false when user is connected
-                })
+                });
+
+                // const autoReload = setTimeout(() => {
+                //     window.location.reload(true);
+                // }, 2000)
+                // revochatClient.on(EventList.User.Connect, (user) => {
+                //     if(autoReload) clearTimeout(autoReload)
+                //     console.log('user', user)
+                //     if(user.error) return console.log(user.error)
+                //     setCurrentUser(user)
+                //     localStorage.setItem('user', JSON.stringify(user))
+                //     if(selectedChannel && user.channels.length === 0) setSelectedChannel({})
+                //     !selectedChannel && setSelectedChannel(user.channels[0])
+                //     setRevoLogin(true)
+                //     setLoading(false); // set loading to false when user is connected
+                // })
             }
             catch(error){
                 console.log(error)
