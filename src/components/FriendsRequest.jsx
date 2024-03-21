@@ -12,7 +12,7 @@ const FriendsRequest = () => {
 
     const { currentUser } = useContext(RevochatContext);
     const [friendsRequest, setFriendsRequest] = useState([]);
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState(true);
 
     useEffect(() => {
         if(!currentUser) return;
@@ -22,9 +22,7 @@ const FriendsRequest = () => {
     const getFriendsRequests = async () => {
         try {
             const token = localStorage.getItem("token")
-            console.log("try to get friends requests")
             await getFriendsRequestsReceived(token, (friendsRequest) => {
-                console.log('friendsRequest: ', friendsRequest)
                 setFriendsRequest(friendsRequest)
             })
         } catch (error) {
@@ -45,10 +43,10 @@ const FriendsRequest = () => {
                 <div className='rounded-full h-5 min-w-[20px] w-fit items-center flex justify-center bg-red-500 text-sm px-1 text-center'> {numberOfPending} </div> 
            </div>
            {menu && (
-                <div className='mt-2 py-2 px-4 max-h-40 overflow-auto scrollbar-hidden'>
+                <div className='mt-2 py-2 px-4 max-h-40 overflow-auto scroll-thin'>
                     {friendsRequest.length === 0 && <div className='text-zinc-400'>No friends request received</div>}
                     {friendsRequest.slice(0, 5).map((friend) => (
-                        <Item friend={friend} key={friend.user_id} />
+                        <Item key={friend.user_id} friend={friend}  />
                     ))}
                 </div>
             )}

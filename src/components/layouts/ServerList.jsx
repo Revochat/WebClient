@@ -154,18 +154,15 @@ const ServerItem = ({ server, handleServerClick, activeServer }) => {
     <li key={server.id} className="transition-all duration-500 list-none">
       <div className="relative flex items-center">
         <div
-          className={`absolute right-0 bottom-0 flex items-center justify-center bg-red-500 text-white rounded-full p-1 z-10 text-xs h-4 w-4 ${
-            activeServer === server.id ? 'border-2 border-white' : ''
-          }`}
+          className={`absolute right-0 bottom-0 flex items-center justify-center bg-red-500 text-white rounded-full p-1 z-10 text-xs h-4 w-4 `}
           onClick={() => handleServerClick(server.id)}
         >
           2
         </div>
         <div className='relative flex w-12 h-12'>
+        <div className={`w-[5px] rounded-md my-auto bg-orange-400 ${activeServer === server.id ? 'orange-bar' : 'no-transition'}`}></div>
           <img
-            className={`rounded-lg overflow-hidden object-cover w-full h-full hover:animate-pulse transform hover:scale-125 focus:scale-125 active:scale-125 transition-transform hover:border-white border border-transparent cursor-pointer ${
-              activeServer === server.id ? 'border-2 border-white' : ''
-            }`}
+            className={`rounded-lg overflow-hidden object-cover ml-1 w-[80%] h-[80%] my-auto transform hover:scale-105 transition-transform  border border-transparent cursor-pointer`}
             src={server.avatar}
             alt={server.name}
             onClick={() => handleServerClick(server.id)}

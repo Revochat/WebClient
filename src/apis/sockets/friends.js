@@ -56,11 +56,10 @@ export const getFriends = async (token, callback) => {
             debug: true,
         })
 
-        client.login(TOKEN) // login with token
+        client.login(TOKEN)
     
         client.on(EventList.User.Connect, (user) => {
             if(user.error) return console.log(user.error)
-            console.log("Getting friends...")
             client.user.getFriendsList()
             .catch((error) => {
                 callback({error: error})

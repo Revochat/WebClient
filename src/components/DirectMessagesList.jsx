@@ -15,7 +15,7 @@ const DirectMessagesList = ({ channels }) => {
                 {!show ? <FaChevronRight size={18} /> : <FaChevronDown size={18} />}
                 <h1 className='font-semibold '>Direct Messages</h1>
             </div>
-                <div className='pb-2'>
+                <div className='pb-2 max-h-60 overflow-auto scroll-thin'>
                     {show && channels?.length === 0 && <div className='text-left ml-8 text-zinc-400'>No direct messages yet.</div>}
                     {show && channels?.map((channel) => (
                        <DirectMessageItem key={channel.channel_id} channel={channel} setSelectedChannel={setSelectedChannel} selectedChannel={selectedChannel} currentUser={currentUser} />

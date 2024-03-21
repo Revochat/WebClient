@@ -14,7 +14,7 @@ const FriendsList = () => {
     const { currentUser } = useContext(RevochatContext);
     const [loading, setLoading] = useState(true);
     const [friends, setFriends] = useState([]);
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState(true);
 
     useEffect(() => {
         if(!currentUser) return;
@@ -49,11 +49,11 @@ const FriendsList = () => {
                     <div className='rounded-full h-5 items-center min-w-[20px] w-fit flex justify-center bg-red-500 px-1 text-sm text-center'> {numberOfFriends} </div> 
                 </div>
                 {menu && (
-                <div className='px-2 max-h-40 overflow-auto scrollbar-hidden'>
+                <div className='px-2 max-h-40 overflow-auto scroll-thin'>
                     {friends.length === 0 && <div className='text-zinc-400'>No friends yet</div>}
                     <div className='flex flex-col gap-3 mt-2 py-2 px-4'>
-                        {friends?.map((friend, index) => (
-                            <Item key={index} friend={friend} />
+                        {friends?.map((friend) => (
+                            <Item key={friend.user_id} friend={friend} />
                         ))}
                     </div>
                 </div>
@@ -97,7 +97,7 @@ const Item = ({ friend }) => {
     };
 
     return (
-        <div className='flex w-full justify-between items-center'>
+        <div className='flex w-full justify-between items-center cursor-pointer'>
             <div className='flex gap-2 items-center'>
                 <Avatar user={friend} className='w-8 h-8' />
                 <div className='flex flex-col'>

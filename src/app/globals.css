@@ -69,4 +69,28 @@
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
+
+.scroll-thin::-webkit-scrollbar {
+  width: 4px; /* Adjust the width to make it thin */
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background-color: #f97316; /* Set scrollbar thumb color */
+  border-radius: 10px; /* Set border radius to make it rounded */
+}
  
+
+.orange-bar {
+  width: 5px;
+  height: 80%;
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: #FFA500; /* Orange color */
+  border-radius: 3px;
+  transition: height 0.4s; /* Add transition effect */
+}
+
+.no-transition {
+  transition: none; /* Disable transition effect */
+  height: 0px; /* Set height to 0 */
+}
