@@ -24,7 +24,7 @@ const ChannelHeader = () => {
                 <Avatar user={member} className="h-14 w-14" />
                 <div className="flex flex-col">
                     <span className="font-semibold text-[#F8871F] capitalize"> {member?.username || "Jhon Abraham"} </span>
-                    <p className="text-xs text-white italic capitalize"> {member?.status || "offline"} </p> {member?.status}
+                    <p className="text-xs text-white italic capitalize"> {member?.status || "offline"} </p>
                 </div>
             </div>
             <div className="flex items-center gap-6">
