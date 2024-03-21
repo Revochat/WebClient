@@ -64,12 +64,12 @@ const LoginComponent = () => {
 
             <div className='flex flex-col gap-5 mt-10 w-full'>
                 <div className='w-full px-8'>
-                    <label htmlFor="username" className='text-white font-semibold'>Your email</label>
+                    <label htmlFor="username" className='text-white font-semibold'>Username</label>
                     <input
                         value={user.username}
                         name="username" 
                         type="text" 
-                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent text-zinc-200'
                         onChange={handleChange}
                     />
                 </div>
@@ -79,7 +79,7 @@ const LoginComponent = () => {
                         value={user.password}
                         name="password" 
                         type={showPassword ? 'text' : 'password'} 
-                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent text-zinc-200'
                         onChange={handleChange}
                     />
                     <span className='absolute right-8 top-8 cursor-pointer text-white' onClick={() => setShowPassword(!showPassword)}>

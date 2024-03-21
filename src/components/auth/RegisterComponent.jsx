@@ -67,7 +67,7 @@ const RegisterComponent = () => {
                         value={user.username}
                         name="username" 
                         type="text" 
-                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent text-zinc-200'
                         onChange={handleChange}
                     />
                 </div>
@@ -77,7 +77,7 @@ const RegisterComponent = () => {
                         value={user.password}
                         name="password" 
                         type={showPassword ? 'text' : 'password'} 
-                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent text-zinc-200'
                         onChange={handleChange}
                     />
                     <span className='absolute right-8 top-8 cursor-pointer text-white' onClick={() => setShowPassword(!showPassword)}>
@@ -90,7 +90,7 @@ const RegisterComponent = () => {
                         value={confirm_password}
                         name="confirm_password" 
                         type="text" 
-                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent'
+                        className='w-full px-3 py-2 border-b border-gray-400 outline-none font-semibold bg-transparent text-zinc-200'
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
