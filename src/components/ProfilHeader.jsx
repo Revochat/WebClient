@@ -5,6 +5,17 @@ import { IoMicSharp, IoMicOffSharp } from "react-icons/io5";
 import { HiOutlineSpeakerWave, HiOutlineSpeakerXMark } from "react-icons/hi2";
 import { IoIosSettings } from "react-icons/io";
 import Avatar from './shared/Avatar';
+import { Button } from "@/components/ui/button"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogClose,
+  } from "@/components/ui/dialog"
 
 const ProfilHeader = () => {
 
@@ -27,7 +38,26 @@ const ProfilHeader = () => {
                 <div className='flex gap-3 text-white items-start mt-2'>
                     {isMuted ? <IoMicOffSharp className='cursor-pointer' size={22} onClick={() => setIsMuted(false)} /> : <IoMicSharp className='cursor-pointer' size={22} onClick={() => setIsMuted(true)} />}
                     {isDeafened ? <HiOutlineSpeakerXMark className='cursor-pointer' size={22} onClick={() => setIsDeafened(false)} /> : <HiOutlineSpeakerWave className='cursor-pointer' size={22} onClick={() => setIsDeafened(true)} />}
-                    <IoIosSettings className='cursor-pointer' size={22} />
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <IoIosSettings className='cursor-pointer' size={22} />
+                        </DialogTrigger>
+                        <DialogContent className="text-white">
+                            <DialogHeader>
+                                <DialogTitle>Settings</DialogTitle>
+                            </DialogHeader>
+                            <DialogDescription>
+                                <p>Settings will be available soon</p>
+                            </DialogDescription>
+                            <DialogFooter className="sm:justify-start">
+                                <DialogClose asChild>
+                                    <Button type="button" variant="secondary">
+                                    Close
+                                    </Button>
+                                </DialogClose>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                 </div>
             </div>
         </div>
