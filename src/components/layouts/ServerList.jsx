@@ -1,6 +1,6 @@
 import { LogOut, PlusSquare } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 const revochatServer = {
@@ -8,7 +8,6 @@ const revochatServer = {
   name: 'Revochat',
   avatar: '/logo.svg',
 };
-
 
 
 // Liste de noms de serveurs
@@ -114,6 +113,10 @@ const servers = [
 const ServerList = () => {
   const [activeServer, setActiveServer] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    setActiveServer(0);
+  }, []);
 
   const handleServerClick = (serverId) => {
     console.log('serverId', serverId);

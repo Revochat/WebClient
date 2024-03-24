@@ -67,11 +67,13 @@ export const getFriends = async (token, callback) => {
         })
     
         client.on(EventList.User.GetFriendsList, (user) => {
+            console.log("GetFriendsList: ", user)
             if (typeof callback === 'function') {
                 if(user.error) return callback({error: user.error})
                 callback(user)
             }
         })
+        
         
     } catch (error) {
         console.log(error)
