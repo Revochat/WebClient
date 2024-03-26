@@ -1,4 +1,3 @@
-// "use server";
 import EventList from "@/context/EventList";
 import { Revochat } from "@revochat/revochat-client";
 
