@@ -1,7 +1,7 @@
 import EventList from "@/context/EventList";
 import { Revochat } from "@revochat/revochat-client";
 
-export const setAvatar = async (token, image) => {
+export const setAvatar = async (token, image, callback) => {
     console.log("Socket - setAvatar()")
     try {
         const TOKEN = token;
@@ -16,24 +16,30 @@ export const setAvatar = async (token, image) => {
         })
 
         client.login(TOKEN) // login with token
-    
-        client.on(EventList.User.Connect, (user) => {
-            if(user.error) return console.log(user.error)
-            console.log("Adding friend...")
-            client.user.addFriend({username: username})
-            .catch((error) => {
-                console.log(error)
-                callback({error: error})
-            })
-        })
-    
-        const link = await client.user.setAvatar("http://localhost:4000", TOKEN, "65a7e0c367c3fa98fedd37b6", formData)
-        console.log("Avatar link: ", link)
 
-        client.on(EventList.User.SetAvatar, (result) => {
-            if (result.error) return console.error("Error:", result.error);
-            console.log("Avatar set:", result);
+        console.log(token)
+        console.log("image", image)
+
+    
+        client.on(EventList.User.Connect, async (user) => {
+            if (user.error) return console.log(user.error)
+            console.log("Connected as " + user.username + " (" + user.user_id + ")")
+            console.log("You have " + user.friends.length + " friends")
+    
+            // create a file
+            const formData = new FormData();
+    
+            formData.append('file', image);
+            console.log(formData)
+
+           
+            const link = await client.user.setAvatar("http://localhost:4000", TOKEN, user.user_id, formData)
+            console.log(link)
+
+            callback(link)
+            
         })
+
         
     } catch (error) {
         console.log(error)

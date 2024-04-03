@@ -1,11 +1,13 @@
 import { RevochatContext } from '@/context/context';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { IoMicSharp, IoMicOffSharp } from "react-icons/io5";
 import { HiOutlineSpeakerWave, HiOutlineSpeakerXMark } from "react-icons/hi2";
 import { IoIosSettings } from "react-icons/io";
 import Avatar from './shared/Avatar';
+
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import {
     Dialog,
     DialogContent,
@@ -16,13 +18,31 @@ import {
     DialogTrigger,
     DialogClose,
   } from "@/components/ui/dialog"
+import { setAvatar } from '@/apis/sockets/avatar';
 
 const ProfilHeader = () => {
 
-    const { currentUser } = useContext(RevochatContext);
+    const { currentUser, setCurrentUser } = useContext(RevochatContext);
 
     const [isMuted, setIsMuted] = useState(false)
     const [isDeafened, setIsDeafened] = useState(false)
+
+    const [newAvatar, setNewAvatar] = useState(null)
+
+
+    const saveAvatar = async () => {
+        console.log("Save Avatar")
+        const token = localStorage.getItem("token");
+
+         await setAvatar(token, newAvatar, (link) => {
+
+            //set currentUSer avatar
+            setCurrentUser({...currentUser, avatar: link})
+
+        });
+        
+        
+    }
 
 
     return (
@@ -42,18 +62,32 @@ const ProfilHeader = () => {
                         <DialogTrigger asChild>
                             <IoIosSettings className='cursor-pointer' size={22} />
                         </DialogTrigger>
-                        <DialogContent className="text-white">
+                        <DialogContent className="text-white bg-primary">
                             <DialogHeader>
-                                <DialogTitle>Settings</DialogTitle>
+                                <DialogTitle>Avatar</DialogTitle>
                             </DialogHeader>
                             <DialogDescription>
-                                <p>Settings will be available soon</p>
+                               <div className='flex flex-col items-center justify-center gap-4'>
+                                    <Input id="picture" type="file" onChange={(e) => setNewAvatar(e.target.files[0])} />
+                                    <img 
+                                        src={newAvatar ? URL.createObjectURL(newAvatar) : currentUser.avatar}
+                                        alt="avatar"
+                                        className="rounded-full object-cover h-40 w-40"
+                                        width={200}
+                                        height={200}
+                                    />
+                               </div>
                             </DialogDescription>
                             <DialogFooter className="sm:justify-start">
                                 <DialogClose asChild>
-                                    <Button type="button" variant="secondary">
-                                    Close
-                                    </Button>
+                                    <div className='flex items-center w-full justify-between'>
+                                        <Button type="button" variant="secondary" onClick={() => setNewAvatar(null)}>
+                                            Cancel
+                                        </Button>
+                                        <Button type="button" variant="success" onClick={saveAvatar}>
+                                            Save
+                                        </Button>
+                                    </div>
                                 </DialogClose>
                             </DialogFooter>
                         </DialogContent>
