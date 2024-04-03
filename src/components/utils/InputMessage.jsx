@@ -7,20 +7,15 @@ import { sendMessage } from '@/apis/sockets/messages';
 import { IoClose } from 'react-icons/io5';
 import { FcFullTrash } from 'react-icons/fc';
 import { sendFile } from '@/apis/sockets/files';
+import { cn } from '@/lib/utils';
 
 const InputMessage = () => {
     
-    const { revochatClient, revoLogin, selectedChannel } = useContext(RevochatContext);
+    const { selectedChannel } = useContext(RevochatContext);
     const [message, setMessage] = useState('');
-    const [client, setClient] = useState(null)
     const [menuAttachment, setMenuAttachment] = useState(false)
     const [file, setFile] = useState(null)
-
-    useEffect(() => {
-        revochatClient.on(EventList.User.Connect, () => {
-            setClient(revochatClient)
-        })
-    }, [revoLogin])
+    const [rows, setRows] = useState(1)
 
     useEffect(() => {
         setMenuAttachment(false)
@@ -49,29 +44,42 @@ const InputMessage = () => {
                 console.log(err)
             }
         })
-    } else {
-        try{
-            await sendMessage(token, channel_id, msg)
-            setMessage('')
+        } else {
+            try{
+                await sendMessage(token, channel_id, msg)
+                setMessage('')
+            }
+            catch(err){
+                console.log(err)
+            }
+
         }
-        catch(err){
-            console.log(err)
-        }
+        setMenuAttachment(false)
 
-    }
-    setMenuAttachment(false)
-
-    }
-
-    const handleChange = (e) => {
-        setMessage(e.target.value)
     }
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            Send()
+            if (e.shiftKey) {
+                // Add a new line and a row when Shift+Enter is pressed
+                e.preventDefault(); // Prevent default behavior (new line)
+                setMessage(prevMessage => prevMessage + '\n');
+                setRows(prevRows => Math.min(prevRows + 1, 4)); // Limit maximum rows to 4
+            } else {
+                setRows(1); // Reset rows to 1
+                Send();
+            }
+        } else if (e.key === 'Backspace' && e.target.value === '') {
+            // Reduce a row when Backspace is pressed and the textarea is empty
+            setRows(prevRows => Math.max(prevRows - 1, 1)); // Ensure minimum of 1 row
         }
-    }
+    };
+    
+    const handleChange = (e) => {
+        const lines = e.target.value.split('\n').length;
+        setRows(Math.min(lines, 4)); // Limit maximum rows to 4
+        setMessage(e.target.value);
+    };
 
     const chooseFile = () => {
         console.log('Choose File')
@@ -89,11 +97,17 @@ const InputMessage = () => {
 
     }
 
+    const calcBottom = () => {
+        if(rows === 1) return 'bottom-[50px]'
+        if(rows === 2) return 'bottom-[60px]'
+        if(rows === 3) return 'bottom-[70px]'
+        if(rows === 4) return 'bottom-[100px]'
+    }
+
+    
     return (
-        
-        
         <div className='px-4 flex items-center gap-3 w-full relative'>
-            {!menuAttachment && file && <div className='absolute bottom-14 w-40 bg-primary rounded-sm p-2 text-white transition-all'>
+            {!menuAttachment && file && <div className={cn('absolute w-40 z-50 bg-primary rounded-sm p-2 text-white transition-all bottom', calcBottom())}>
                 {/* Show file as URL.createObjectURL */}
                 <div className='relative'>
                     <span className='absolute top-0 right-0 cursor-pointer text-red-600' onClick={()=> setFile(null)}> <FcFullTrash size={18} /> </span>
@@ -106,7 +120,7 @@ const InputMessage = () => {
                     />
                 </div>
             </div>}
-            {menuAttachment && <div className='absolute bottom-14 w-40 bg-primary rounded-sm p-2 text-white transition-all'>
+            {menuAttachment && <div className={cn(`absolute bottom-14 w-40 z-50 bg-primary rounded-sm p-2 text-white transition-all`, calcBottom())}>
                 <div className='relative w-full h-full ml-1 pb-1'>
                     <span className='absolute top-0 right-0 cursor-pointer' onClick={()=> setMenuAttachment(false)}> <IoClose size={20} /> </span>
                     <div className='pt-4 flex flex-col gap-2'>
@@ -149,7 +163,7 @@ const InputMessage = () => {
                     </div>
                 </div>
             </div>}
-            <Image 
+            <Image
                 src="/attachment.svg"
                 alt="attachment"
                 width={26}
@@ -157,8 +171,12 @@ const InputMessage = () => {
                 className='cursor-pointer hover:scale-105 transition'
                 onClick={() => setMenuAttachment(!menuAttachment)}
             />
-            <div className='relative items-center h-10 flex w-full'>
-                <input className='w-full pl-6 py-2 px-2 rounded-xl outline-none' type="text" placeholder='Tapez le message...' value={message}
+            <div className={`relative items-center h-10 flex w-full ${rows > 3 && 'mb-4'}`}>
+                <textarea 
+                    className='w-full pl-6 py-2 px-2 rounded-xl outline-none resize' 
+                    type="text" placeholder='Tapez le message...' 
+                    value={message}
+                    rows={rows}
                     onChange={handleChange}
                     onKeyDown={handleKeyDown}
                 />

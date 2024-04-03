@@ -65,7 +65,7 @@ const Messages = ({ channelMessages }) => {
 
     return (
         <div className='w-full h-full relative'>
-            <div className='flex flex-col overflow-y-auto max-h-[90%] scrollbar-hidden p-6'>
+            <div className='flex flex-col overflow-y-auto max-h-[86%] scrollbar-hidden p-6'>
                 {messages?.map((message) => (
                     <Message key={`${message.message_id}`} message={message} />
                 ))}
