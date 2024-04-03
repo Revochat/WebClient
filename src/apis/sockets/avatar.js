@@ -17,24 +17,17 @@ export const setAvatar = async (token, image, callback) => {
 
         client.login(TOKEN) // login with token
 
-        console.log(token)
-        console.log("image", image)
-
     
         client.on(EventList.User.Connect, async (user) => {
             if (user.error) return console.log(user.error)
-            console.log("Connected as " + user.username + " (" + user.user_id + ")")
-            console.log("You have " + user.friends.length + " friends")
     
             // create a file
             const formData = new FormData();
     
             formData.append('file', image);
-            console.log(formData)
 
            
             const link = await client.user.setAvatar("http://localhost:4000", TOKEN, user.user_id, formData)
-            console.log(link)
 
             callback(link)
             
