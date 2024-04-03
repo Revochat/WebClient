@@ -5,6 +5,8 @@ import { PiPaperPlaneRightFill } from "react-icons/pi";
 import Image from 'next/image';
 import { sendMessage } from '@/apis/sockets/messages';
 import { IoClose } from 'react-icons/io5';
+import { FcFullTrash } from 'react-icons/fc';
+import { sendFile } from '@/apis/sockets/files';
 
 const InputMessage = () => {
     
@@ -12,6 +14,7 @@ const InputMessage = () => {
     const [message, setMessage] = useState('');
     const [client, setClient] = useState(null)
     const [menuAttachment, setMenuAttachment] = useState(false)
+    const [file, setFile] = useState(null)
 
     useEffect(() => {
         revochatClient.on(EventList.User.Connect, () => {
@@ -26,18 +29,38 @@ const InputMessage = () => {
     
 
     const Send = async () => {
-        if(!message) return;
+        if(!message && !file) return;
         if(!selectedChannel?.channel_id) return alert('Pas de channel selectionné')
 
+        const token = localStorage.getItem("token");
+        const channel_id = selectedChannel.channel_id;
+        var msg = message;
+
+        if(file) { await sendFile(token, channel_id, file, (link) => {
+            setFile(null)
+            // push link into message input
+            msg += ` ${link}`
+            
+            try{
+                sendMessage(token, channel_id, msg)
+                setMessage('')
+            }
+            catch(err){
+                console.log(err)
+            }
+        })
+    } else {
         try{
-            const token = localStorage.getItem("token");
-            const channel_id = selectedChannel.channel_id;
-            await sendMessage(token, channel_id, message)
+            await sendMessage(token, channel_id, msg)
             setMessage('')
         }
         catch(err){
             console.log(err)
         }
+
+    }
+    setMenuAttachment(false)
+
     }
 
     const handleChange = (e) => {
@@ -50,15 +73,44 @@ const InputMessage = () => {
         }
     }
 
+    const chooseFile = () => {
+        console.log('Choose File')
+
+        //open file dialog
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            setFile(file)
+            setMenuAttachment(false)
+        
+        }
+        input.click();
+
+    }
+
     return (
         
         
         <div className='px-4 flex items-center gap-3 w-full relative'>
+            {!menuAttachment && file && <div className='absolute bottom-14 w-40 bg-primary rounded-sm p-2 text-white transition-all'>
+                {/* Show file as URL.createObjectURL */}
+                <div className='relative'>
+                    <span className='absolute top-0 right-0 cursor-pointer text-red-600' onClick={()=> setFile(null)}> <FcFullTrash size={18} /> </span>
+                    <img 
+                        src={file ? URL.createObjectURL(file) : ''}
+                        alt="file"
+                        className="rounded-md object-cover h-40 w-40"
+                        width={200}
+                        height={200}
+                    />
+                </div>
+            </div>}
             {menuAttachment && <div className='absolute bottom-14 w-40 bg-primary rounded-sm p-2 text-white transition-all'>
                 <div className='relative w-full h-full ml-1 pb-1'>
                     <span className='absolute top-0 right-0 cursor-pointer' onClick={()=> setMenuAttachment(false)}> <IoClose size={20} /> </span>
                     <div className='pt-4 flex flex-col gap-2'>
-                        <div className='flex gap-3 items-center'>
+                        <div className='flex gap-3 items-center cursor-pointer' onClick={chooseFile}>
                             <div className='bg-white rounded-full h6 w-6 flex justify-center items-center p-1'>
                                 <Image
                                     src="/camera.svg"
@@ -70,7 +122,7 @@ const InputMessage = () => {
                             </div>
                             <span>Camera</span>
                         </div>
-                        <div className='flex gap-3 items-center'>
+                        <div className='flex gap-3 items-center cursor-pointer' onClick={chooseFile}>
                             <div className='bg-white rounded-full h6 w-6 flex justify-center items-center p-1'>
                                 <Image
                                     src="/doc.svg"
@@ -82,7 +134,7 @@ const InputMessage = () => {
                             </div>
                             <span>Documents</span>
                         </div>
-                        <div className='flex gap-3 items-center'>
+                        <div className='flex gap-3 items-center cursor-pointer' onClick={chooseFile}>
                             <div className='bg-white rounded-full h6 w-6 flex justify-center items-center p-1'>
                                 <Image
                                     src="/media.svg"

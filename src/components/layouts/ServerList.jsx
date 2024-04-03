@@ -132,10 +132,10 @@ const ServerList = () => {
     <div className="h-screen overflow-hidden w-20 bg-[#0E0E15] items-center">
       <div className='w-full h-full flex flex-col justify-between items-center'>
         <div className='mt-4 max-h-[90%] w-full flex flex-col items-center'>
-          <ServerItem server={revochatServer} handleServerClick={handleServerClick} activeServer={activeServer} />
+          <ServerItem key={revochatServer.id} server={revochatServer} handleServerClick={handleServerClick} activeServer={activeServer} />
           <div className='mt-14 pt-2 max-h-[72%] overflow-auto scrollbar-hidden w-full flex flex-col gap-3 items-center'>
             {servers.map((server) => (
-              <ServerItem server={server} handleServerClick={handleServerClick} activeServer={activeServer} />
+              <ServerItem key={server.id} server={server} handleServerClick={handleServerClick} activeServer={activeServer} />
             ))}
           </div>
             <PlusSquare size={54} className='text-white cursor-pointer mt-2 hover:scale-105 transition-all' />
@@ -154,7 +154,7 @@ const ServerItem = ({ server, handleServerClick, activeServer }) => {
   const [ isHovered, setIsHovered ] = useState(false)
 
   return (
-    <li key={server.id} className="transition-all duration-500 list-none">
+    <li className="transition-all duration-500 list-none">
       <div className="relative flex items-center">
         <div
           className={`absolute right-0 bottom-0 flex items-center justify-center bg-red-500 text-white rounded-full p-1 z-10 text-xs h-4 w-4 `}

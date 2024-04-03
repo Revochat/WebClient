@@ -10,23 +10,51 @@ import { receiveMessages } from '@/apis/sockets/messages';
 
 const Messages = ({ channelMessages }) => {
 
-    const { revochatClient, selectedChannel } = useContext(RevochatContext);
     const ref = useRef(null);
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        if(!channelMessages) return;
-        setMessages(channelMessages);
+        if (!channelMessages) return;
+    
+        let formattedMessages = channelMessages.map((message) => {
+            const formattedMessage = formattedData(message);
+    
+            return { ...message, message: formattedMessage };
+        });
+        setMessages(formattedMessages);
     }, [channelMessages]);
+    
 
     useEffect(() => {
         // Call receiveMessages function when the component mounts
         const token = localStorage.getItem("token");
-            receiveMessages(token, (message) => {
-                // Update the messages state with the new message
-                setMessages(prevMessages => [...prevMessages, message.message]);
-            });
+        receiveMessages(token, (data) => {
+            const formattedMessage = formattedData(data.message);
+            setMessages((prevMessages) => [...prevMessages, { ...data.message, message: formattedMessage }]);
+        });
     }, []);
+
+    const formattedData = (data) => {
+        let formattedMessage = data.message;
+
+        // Check if the message contains a URL ending with image extension
+        const isImage = /\b(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(?:png|jpg|jpeg|gif|svg)\b/gi.test(data.message);
+        // Check if the message contains a URL ending with file extension (pdf, txt, etc.)
+        const isFile = /\b(?:https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(?:pdf|txt|docx?|xlsx?|pptx?|zip|rar)\b/gi.test(data.message);
+
+        if (isImage) {
+            console.log("Is Image", isImage);
+            // If it's an image link, replace it with an <img> tag
+            formattedMessage = formattedMessage.replace(/\b((?:https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(?:png|jpg|jpeg|gif|svg))\b/gi, '<img src="$1" alt="image" style="width: 200px;" />');
+        } else if (isFile) {
+            console.log("Is File", isFile);
+            // If it's a file link, replace it with an <a> tag
+            formattedMessage = formattedMessage.replace(/\b((?:https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(?:pdf|txt|docx?|xlsx?|pptx?|zip|rar))\b/gi, '<a href="$1" style="color: orange" target="_blank" rel="noopener noreferrer">Download File</a>');
+        }
+
+        return formattedMessage;
+    }
+
 
     useEffect(() => {
         // Scroll to the last message when messages change
@@ -66,9 +94,9 @@ const Message = ({ message }) => {
                         <Avatar user={message.user} className="w-10 h-10" />
                     </div>
                     <div className='mr-14 bg-primary rounded-md rounded-tr-none w-fit'>
-                        <div className='w-fit py-1 px-2 text-sm'>
-                            <p> {message.message} </p>
-                        </div>
+                    <div className='w-fit py-1 px-2 text-sm'>
+                        <div dangerouslySetInnerHTML={{ __html: message.message }}></div>
+                    </div>
                     </div>
                     <span className='text-end mr-14 mt-1 italic text-xs text-zinc-400'> {message.createdAt.slice(11,19)} </span>
                 </div>
