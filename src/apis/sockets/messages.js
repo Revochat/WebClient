@@ -24,11 +24,6 @@ export const sendMessage = async (token, channel_id, message) => {
             client.message.send({channel_id: channel_id, message: message})
         })
         
-        // client.on(EventList.Message.Send, (message) => {
-        //     if(message.error) return console.log(message.error)
-        //     console.log(message)
-        // })
-        
     } catch (error) {
         console.log(error)
         return error;

@@ -17,7 +17,6 @@ export const setAvatar = async (token, image, callback) => {
 
         client.login(TOKEN) // login with token
 
-    
         client.on(EventList.User.Connect, async (user) => {
             if (user.error) return console.log(user.error)
     
@@ -27,7 +26,7 @@ export const setAvatar = async (token, image, callback) => {
             formData.append('file', image);
 
            
-            const link = await client.user.setAvatar("http://localhost:4000", TOKEN, user.user_id, formData)
+            const link = await client.user.setAvatar(process.env.REVO_CDN_URL, TOKEN, user.user_id, formData)
 
             callback(link)
             

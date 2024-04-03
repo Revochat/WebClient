@@ -25,9 +25,8 @@ export const sendFile = async (token, channel_id, file, callback) => {
             const formData = new FormData();
     
             formData.append('file', file);
-
            
-            const link = await client.message.sendFile("http://localhost:4000", TOKEN, channel_id, formData)
+            const link = await client.message.sendFile(process.env.REVO_CDN_URL, TOKEN, channel_id, formData)
             callback(link)
             
         })

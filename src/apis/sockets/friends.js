@@ -73,7 +73,6 @@ export const getFriends = async (token, callback) => {
             }
         })
         
-        
     } catch (error) {
         console.log(error)
         return error;
