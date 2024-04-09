@@ -23,13 +23,10 @@ const AddFriend = () => {
     }
 
     const Add = async () => {
-        console.log('Add friend')
        try{
             const token = localStorage.getItem('token')
             await addFriend(token, username, (user) => {
-                console.log('user: ', user)
                 if(user.error) {
-                    console.log('error: ', user.error)
                     toast({
                         className: cn(
                             'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
@@ -54,7 +51,6 @@ const AddFriend = () => {
             
        }
        catch(err){
-           console.log('error: ', err)
            toast({
             className: cn(
                 'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'

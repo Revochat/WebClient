@@ -16,7 +16,7 @@ export const addFriend = async (token, username, callback) => {
         })
 
         client.login(TOKEN) // login with token
-    
+        console.log("username: ", username)
         client.on(EventList.User.Connect, (user) => {
             if(user.error) return console.log(user.error)
             console.log("Adding friend...")
@@ -34,11 +34,55 @@ export const addFriend = async (token, username, callback) => {
                 callback(user)
             }
         })
+
+        client.on(EventList.User.GetFriends, (user) => {
+            console.log("GetFriends: ", user)
+            if (typeof callback === 'function') {
+                if(user.error) return callback({error: user.error})
+                callback(user)
+            }
+        })
         
     } catch (error) {
         console.log(error)
         return error;
     }
+}
+
+export const getNewFriend = async (token, callback) => {
+    console.log("Socket - getNewFriend()")
+    try {
+        const TOKEN = token;
+        if(!TOKEN) throw new Error("TOKEN is not defined in .env file")
+
+        const URL = process.env.REVO_CLIENT_URL;
+        if(!URL) throw new Error("URL is not defined in .env file")
+
+        const client = new Revochat.Client({
+            url: URL,
+            debug: true,
+        })
+
+        client.login(TOKEN) // login with token
+    
+        client.on(EventList.User.Connect, (user) => {
+            if(user.error) return console.log(user.error)
+        })
+    
+        client.on(EventList.User.GetFriends, (user) => {
+            console.log("GetFriendRequestsSent: ", user)
+            if (typeof callback === 'function') {
+                if(user.error) return callback({error: user.error})
+                callback(user)
+            }
+        })
+
+        
+    } catch (error) {
+        console.log(error)
+        return error;
+    }
+
 }
 
 export const getFriends = async (token, callback) => {
@@ -145,6 +189,40 @@ export const removeFriend = async (token, username, callback) => {
         })
     
         client.on(EventList.User.RemoveFriend, (user) => {
+            if (typeof callback === 'function') {
+                if(user.error) return callback({error: user.error})
+                callback(user)
+            }
+        })
+        
+    } catch (error) {
+        console.log(error)
+        return error;
+    }
+}
+
+export const listenGetFriendsRequestReceived = async (token, callback) => {
+    console.log("Socket - listenGetFriendsRequestReceived()")
+    try {
+        const TOKEN = token;
+        if(!TOKEN) throw new Error("TOKEN is not defined in .env file")
+
+        const URL = process.env.REVO_CLIENT_URL
+        if(!URL) throw new Error("URL is not defined in .env file")
+
+        const client = new Revochat.Client({
+            url: URL,
+            debug: true,
+        })
+
+        client.login(TOKEN) // login with token
+    
+        client.on(EventList.User.Connect, (user) => {
+            if(user.error) return console.log(user.error)
+        })
+    
+        client.on(EventList.User.GetFriendRequestsReceived, (user) => {
+            console.log(user)
             if (typeof callback === 'function') {
                 if(user.error) return callback({error: user.error})
                 callback(user)

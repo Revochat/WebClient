@@ -1,4 +1,4 @@
-import { getFriends, removeFriend } from '@/apis/sockets/friends';
+import { getFriends, getNewFriend, removeFriend } from '@/apis/sockets/friends';
 import EventList from '@/context/EventList';
 import { RevochatContext } from '@/context/context';
 import React, { useContext, useEffect, useState } from 'react';
@@ -11,26 +11,38 @@ import { GoChevronRight, GoChevronDown } from "react-icons/go";
 
 const FriendsList = () => {
 
-    const { currentUser } = useContext(RevochatContext);
+    const { currentUser, friends, setFriends } = useContext(RevochatContext);
     const [loading, setLoading] = useState(true);
-    const [friends, setFriends] = useState([]);
+    // const [friends, setFriends] = useState([]);
     const [menu, setMenu] = useState(true);
 
     useEffect(() => {
         if(!currentUser) return;
-        getFriendsList()
+        getFriendsList();
+        getFriends(currentUser.token, (friends) => {
+            setFriends(friends)
+            setLoading(false)
+        })
+        getNewFriends();
     }, [currentUser])
 
     const getFriendsList = async () => {
         try {
             const token = localStorage.getItem("token")
-            console.log("try to get friends list")
             await getFriends(token, (friends) => {
                 setFriends(friends)
             })
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const getNewFriends = async () => {
+        const token = localStorage.getItem("token")
+        await getNewFriend(token, (request) => {
+            setFriends([...friends, request.user])
+            console.log('getNewFriends: ', friends)
+        })
     }
 
     const numberOfFriends = friends.length;
@@ -53,7 +65,7 @@ const FriendsList = () => {
                     {friends.length === 0 && <div className='text-zinc-400'>No friends yet</div>}
                     <div className='flex flex-col gap-3 mt-2 py-2 px-4'>
                         {friends?.map((friend) => (
-                            <Item key={friend.user_id} friend={friend} />
+                            <Item key={friend.user_id} friend={friend} setFriends={setFriends} />
                         ))}
                     </div>
                 </div>
@@ -63,14 +75,12 @@ const FriendsList = () => {
     );
 }
 
-const Item = ({ friend }) => {
+const Item = ({ friend, setFriends }) => {
 
     const handleRemoveFriend = async (friend) => {
         try{
             const token = localStorage.getItem("token")
-            console.log("try to remove friend: ", friend);
             await removeFriend(token, friend.username, (result) => {
-
                 toast({
                     className: cn(
                         'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'
@@ -79,12 +89,10 @@ const Item = ({ friend }) => {
                     title: "Friend removed successfully!",
                     description: `Friend ${friend.username} has been removed from your friends list.`,
                   })
-
-                  window.location.reload()
+                setFriends((prev) => prev.filter((f) => f.user_id !== friend.user_id))
             })
         }
         catch(error){
-            console.log('error: ', error)
             toast({
                 className: cn(
                     'top-0 right-0 flex fixed md:max-w-[420px] md:top-4 md:right-4'

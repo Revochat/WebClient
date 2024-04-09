@@ -18,6 +18,8 @@ export const RevochatContext = createContext();
         const [selectedChannel, setSelectedChannel] = useState({})
         const [loading, setLoading] = useState(false);
 
+        const [friends, setFriends] = useState([]);
+
         useEffect(() => {
             try {
                 if (!currentUser.user_id && !loading) {
@@ -79,6 +81,8 @@ export const RevochatContext = createContext();
                 revoLogin,
                 selectedChannel,
                 setSelectedChannel,
+                friends,
+                setFriends,
             }}>
             {children} 
         </RevochatContext.Provider>
