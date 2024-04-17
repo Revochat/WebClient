@@ -20,6 +20,7 @@ export const VideoPlayer = () => {
         setClient(revochatClient)
     
         const peer = new Peer(peerId, {host: 'localhost', port: 9005, path: '/myapp',});
+
         peer.on('open', () => { // this is the peer id of the current user
             setPeerId(currentUser.username)
             console.log('My peer ID is: ' + currentUser.username);
@@ -46,10 +47,11 @@ export const VideoPlayer = () => {
     }, [revoLogin])
 
         const call = (remotePeerId) => { // on clicking call button we send our stream to remote peer and wait for their stream
+            console.log('calling')
             var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-
+            console.log(getUserMedia)
             getUserMedia({ video: true, audio: true }, (mediaStream) => {
-
+                console.log('stream received')
               currentUserVideoRef.current.srcObject = mediaStream;
               currentUserVideoRef.current.play();
 
@@ -68,16 +70,14 @@ export const VideoPlayer = () => {
         }
 
     return (
-        <div className="App">
-        <h1>Current user id is {peerId}</h1>
-        <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
-        <button onClick={() => call(remotePeerIdValue)}>Call</button>
-        <div>
-            <video ref={currentUserVideoRef} />
-        </div>
-        <div>
-            <video ref={remoteVideoRef} />
-        </div>
+        <div className=''>
+            <h1>Current user id is {peerId}</h1>
+            <input type="text" value={remotePeerIdValue} onChange={e => setRemotePeerIdValue(e.target.value)} />
+            <button className='cursor-pointer' onClick={() => call(remotePeerIdValue)}>Call</button>
+            <div className='flex gap-2 items-center'>
+                <video className='bg-red-500 z-50' ref={currentUserVideoRef} />
+                <video className='bg-green-500 z-50' ref={remoteVideoRef} />
+            </div>
         </div>
     );
 }

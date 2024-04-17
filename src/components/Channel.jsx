@@ -6,7 +6,6 @@ import ChannelHeader from '@/components/shared/ChannelHeader';
 import { getChannel } from '@/apis/sockets/channels';
 import { toast } from './ui/use-toast';
 import { cn } from '@/lib/utils';
-// import { VideoPlayer } from './VideoPlayer';
 
 const Channel = () => {
 
@@ -44,7 +43,6 @@ const Channel = () => {
                 <ChannelHeader />
                 <div className='h-full overflow-hidden'>
                     <Messages channelMessages={channelMessages}  />
-                    {/* <VideoPlayer /> */}
                 </div>
             </div>
         </div>
